@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@ocean-news/ui/src/styles/theme.css';
+
+/* Bảng màu Admin Console — ghi đè các biến semantic dùng chung trong theme.css bằng nguồn
+   Admin.dc.html (packages/design-tokens/src/colors.ts: stone/adminGreen/adminAmber/adminRed).
+   Component trong packages/ui đọc các biến này qua Tailwind (bg-primary, border-border, ...)
+   nên chỉ cần đổi giá trị ở đây là toàn bộ component dùng chung tự chuyển sang nhận diện admin. */
+:root {
+  --color-background: #eeece7;
+  --color-foreground: #17150f;
+
+  --color-primary: #1f6f52;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #f4f2ec;
+  --color-secondary-foreground: #17150f;
+
+  --color-accent: #1f6f52;
+  --color-accent-foreground: #ffffff;
+
+  --color-muted: #f4f2ec;
+  --color-muted-foreground: #5d5950;
+
+  --color-destructive: #c2492f;
+  --color-destructive-foreground: #ffffff;
+
+  --color-success: #1f6f52;
+  --color-success-foreground: #ffffff;
+
+  --color-warning: #c9902a;
+  --color-warning-foreground: #17150f;
+
+  --color-border: #e0dcd3;
+  --color-input: #e0dcd3;
+  --color-ring: #1f6f52;
+
+  --radius: 0.6875rem;
+}

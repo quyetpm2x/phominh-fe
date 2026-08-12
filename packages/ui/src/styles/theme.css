@@ -1,0 +1,32 @@
+/* Nguồn màu: @ocean-news/design-tokens — đổi màu thương hiệu ở đó, không sửa tay ở đây. */
+:root {
+  --color-background: #fafbfc;
+  --color-foreground: #20242b;
+
+  --color-primary: #2d6cdf;
+  --color-primary-foreground: #fafbfc;
+
+  --color-secondary: #edeff2;
+  --color-secondary-foreground: #20242b;
+
+  --color-accent: #ffc93c;
+  --color-accent-foreground: #20242b;
+
+  --color-muted: #edeff2;
+  --color-muted-foreground: #55606b;
+
+  --color-destructive: #d6455a;
+  --color-destructive-foreground: #fafbfc;
+
+  --color-success: #4caf6d;
+  --color-success-foreground: #20242b;
+
+  --color-warning: #d9a511;
+  --color-warning-foreground: #20242b;
+
+  --color-border: #dee3e8;
+  --color-input: #dee3e8;
+  --color-ring: #2d6cdf;
+
+  --radius: 0.875rem;
+}

@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if git diff --cached --name-only | grep -q -E 'yarn\.lock|package-lock\.json'; then
+    echo "❌ Dự án dùng pnpm — không commit yarn.lock hoặc package-lock.json"
+    exit 1
+fi
+
+npx lint-staged

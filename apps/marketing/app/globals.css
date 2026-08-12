@@ -1,0 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@ocean-news/ui/src/styles/theme.css';

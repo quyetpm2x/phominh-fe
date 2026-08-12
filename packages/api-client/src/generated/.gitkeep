@@ -1,0 +1,2 @@
+Sinh tự động bởi `openapi-typescript` từ OpenAPI schema của backend NestJS (mục 5 tài liệu FE).
+KHÔNG sửa tay thư mục này — chạy lại lệnh generate khi backend đổi field.
