@@ -36,6 +36,7 @@ const DESC: Partial<Record<ScreenId, string>> = {
   G6: 'Merchant là nguồn nội dung mồi cốt lõi — merchant rời bỏ rủi ro hơn user thường rời bỏ',
   G7: 'Đo hiệu quả thực tế của các cơ chế chống lạm dụng đã thiết kế',
   G8: 'Chỉ số sống còn cho mô hình bootstrap đã chốt',
+  H1: 'Dữ liệu THẬT từ backend — không phải mock, đăng ký quán/chờ mở khu mới/liên hệ',
 };
 
 export function screenName(id: ScreenId): string {

@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
+import { postPublicLead } from '../../lib/backendApi';
+
 const notifySignupSchema = z.object({
   phoneNumber: z
     .string()
@@ -15,13 +17,13 @@ export interface NotifySignupResult {
   error?: string;
 }
 
-// Gọi thẳng NestJS backend /api/public/pilot-signups khi endpoint sẵn sàng (mục 1, 3 tài liệu FE).
+// Gọi thẳng NestJS backend POST /api/public/pilot-signups (PublicLeadsController).
 export async function notifySignup(input: NotifySignupInput): Promise<NotifySignupResult> {
   const parsed = notifySignupSchema.safeParse(input);
   if (!parsed.success) {
     return { success: false, error: parsed.error.issues[0]?.message ?? 'Dữ liệu không hợp lệ' };
   }
 
-  // TODO: gọi backend NestJS thật khi endpoint /api/public/pilot-signups sẵn sàng.
-  return { success: true };
+  const result = await postPublicLead('pilot-signups', parsed.data);
+  return result.ok ? { success: true } : { success: false, error: result.error };
 }

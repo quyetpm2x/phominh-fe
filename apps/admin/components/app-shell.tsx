@@ -5,12 +5,13 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
 
+import { useRole } from './role-context';
+
 import { accessLevel } from '@/lib/acl';
+import { clearAdminToken } from '@/lib/adminApi';
 import { NAV, ROLES, type RoleDef, screenIdForPath } from '@/lib/nav';
 import { screenDesc, screenName } from '@/lib/screens';
 import type { RoleId, ScreenId } from '@/lib/types';
-
-import { useRole } from './role-context';
 
 // Sidebar + topbar dùng chung cho mọi trang trong (dashboard) — ported từ khung sườn
 // (sidebar nav + topbar) trong Admin.dc.html.
@@ -35,7 +36,7 @@ function Sidebar({ role, activeScreen }: { role: RoleId; activeScreen: ScreenId 
   const roleObj = ROLES.find((r) => r.id === role)!;
 
   function logout() {
-    document.cookie = 'admin_access_token=; path=/; max-age=0';
+    clearAdminToken();
     router.push('/login');
   }
 

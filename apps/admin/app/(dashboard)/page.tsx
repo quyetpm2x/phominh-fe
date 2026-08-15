@@ -1,10 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 
 import { Pill } from '@/components/pill';
 import { ScreenAccessGuard } from '@/components/screen-banner';
-import { AREA_HEALTH, KPIS, NSM, QUEUES } from '@/lib/mock/dashboard';
+import { useDashboardSummary } from '@/hooks/useDashboardSummary';
+import { AREA_HEALTH, NSM, QUEUES } from '@/lib/mock/dashboard';
 
-// Dashboard tổng quan — A2 (tài liệu nghiệp vụ).
+// Dashboard tổng quan — A2 (tài liệu nghiệp vụ, mục 85). KpiGrid ĐÃ NỐI dữ liệu THẬT
+// (GET /api/admin/analytics/dashboard-summary). NsmCard/QueueList/AreaHealthTable BÊN DƯỚI VẪN
+// MOCK — nằm ngoài phạm vi "4 số liệu cốt lõi" của mục 85 (cần cron G1-G8 riêng, chưa xây).
 export default function DashboardPage() {
   return (
     <ScreenAccessGuard screen="A2">
@@ -19,13 +24,37 @@ export default function DashboardPage() {
 }
 
 function KpiGrid() {
+  const { summary, error } = useDashboardSummary();
+
+  if (error) {
+    return (
+      <div className="border-admin-red-soft-border bg-admin-red-soft text-admin-red rounded-lg border px-4 py-3 text-sm">
+        {error}
+      </div>
+    );
+  }
+  if (!summary) return <div className="text-sm text-stone-600">Đang tải…</div>;
+
+  const items = [
+    { label: 'User mới hôm nay', value: summary.newUsersToday, hint: 'Tính theo ngày UTC' },
+    { label: 'Bài đăng mới hôm nay', value: summary.newPostsToday, hint: 'Không tính bài đã gỡ' },
+    { label: 'Report chờ xử lý', value: summary.pendingReports, hint: 'Trạng thái pending' },
+    {
+      label: 'Merchant hoạt động',
+      value: summary.activeMerchants,
+      hint: 'Đã đăng ít nhất 1 bài trong 7 ngày qua',
+    },
+  ];
+
   return (
-    <div className="grid grid-cols-5 gap-3.5">
-      {KPIS.map((k) => (
+    <div className="grid grid-cols-4 gap-3.5">
+      {items.map((k) => (
         <div key={k.label} className="border-border bg-background rounded-lg border p-4">
           <div className="min-h-8 text-sm leading-snug text-stone-600">{k.label}</div>
-          <div className="mt-1.5 text-3xl font-bold tracking-tight">{k.value}</div>
-          <div className="mt-1 text-xs text-stone-700">{k.delta}</div>
+          <div className="mt-1.5 text-3xl font-bold tracking-tight">
+            {k.value.toLocaleString('vi-VN')}
+          </div>
+          <div className="mt-1 text-xs text-stone-700">{k.hint}</div>
         </div>
       ))}
     </div>

@@ -34,4 +34,6 @@ export type ScreenId =
   | 'G5'
   | 'G6'
   | 'G7'
-  | 'G8';
+  | 'G8'
+  | 'H1'
+  | 'I1';

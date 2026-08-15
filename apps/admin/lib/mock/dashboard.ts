@@ -1,22 +1,8 @@
 import type { Tone } from '../types';
 
-// Dữ liệu mock cho A2 — ported từ kpis/NSM/queues/areaHealth trong Admin.dc.html. Chưa có
-// backend cho các chỉ số này (api-sync: không có endpoint được generate), giữ nguyên fidelity
-// của mock cho tới khi có API thật.
-export interface Kpi {
-  label: string;
-  value: string;
-  delta: string;
-}
-
-export const KPIS: Kpi[] = [
-  { label: 'User mới hôm nay', value: '118', delta: '+12% so với TB 7 ngày' },
-  { label: 'Bài đăng mới hôm nay', value: '386', delta: '3 khu vực đang hoạt động' },
-  { label: 'Report chờ xử lý', value: '43', delta: 'TB xử lý 2 giờ 10 phút' },
-  { label: 'Merchant hoạt động', value: '76', delta: 'đã đăng ít nhất 1 bài trong 7 ngày' },
-  { label: 'Cụm tấn công đang diễn ra', value: '2', delta: 'hệ thống đã tạm khóa bình luận' },
-];
-
+// Dữ liệu mock cho A2 — ported từ NSM/queues/areaHealth trong Admin.dc.html. KPIS (5 số liệu đầu
+// trang) đã chuyển sang dữ liệu THẬT (useDashboardSummary, tai-lieu-chuc-nang.md #85) — phần dưới
+// đây vẫn mock, chưa có backend cho các chỉ số này.
 export const NSM = {
   value: 62,
   delta: '▲ 7 điểm so với kỳ trước',

@@ -76,6 +76,8 @@ const HREF: Record<ScreenId, string> = {
   G6: '/analytics/g6',
   G7: '/analytics/g7',
   G8: '/analytics/g8',
+  H1: '/marketing-leads',
+  I1: '/payments',
 };
 
 export function screenHref(id: ScreenId): string {
@@ -156,5 +158,13 @@ export const NAV: NavGroup[] = [
       { id: 'G7', name: 'An toàn & kiểm duyệt', href: HREF.G7 },
       { id: 'G8', name: 'Chi phí vận hành', href: HREF.G8 },
     ],
+  },
+  {
+    label: 'H · Marketing',
+    items: [{ id: 'H1', name: 'Lead từ web marketing', href: HREF.H1 }],
+  },
+  {
+    label: 'I · Thanh toán',
+    items: [{ id: 'I1', name: 'Duyệt chi hộ Momo/VNPay', href: HREF.I1 }],
   },
 ];

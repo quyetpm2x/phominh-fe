@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
+import { postPublicLead } from '../../lib/backendApi';
+
 // Validate lại phía server dù React Hook Form + Zod đã validate ở client (mục 3 tài liệu FE).
 const registerMerchantSchema = z.object({
   businessName: z.string().min(1),
@@ -18,8 +20,8 @@ export interface RegisterMerchantResult {
   error?: string;
 }
 
-// Gọi thẳng NestJS backend /api/public/merchants (mục 1, 3 tài liệu FE) — endpoint thật
-// chưa sẵn sàng, để TODO khi backend công bố route.
+// Gọi thẳng NestJS backend POST /api/public/merchants (PublicLeadsController, tai-lieu-chuc-nang.md
+// #77) — chỉ tạo lead để đội vận hành gọi lại, KHÔNG tạo tài khoản/hồ sơ quán thật.
 export async function registerMerchant(
   input: RegisterMerchantInput,
 ): Promise<RegisterMerchantResult> {
@@ -28,6 +30,6 @@ export async function registerMerchant(
     return { success: false, error: parsed.error.issues[0]?.message ?? 'Dữ liệu không hợp lệ' };
   }
 
-  // TODO: gọi backend NestJS thật khi endpoint /api/public/merchants sẵn sàng.
-  return { success: true };
+  const result = await postPublicLead('merchants', parsed.data);
+  return result.ok ? { success: true } : { success: false, error: result.error };
 }
