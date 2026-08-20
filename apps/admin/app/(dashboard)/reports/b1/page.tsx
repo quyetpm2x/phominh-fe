@@ -1,7 +1,6 @@
 'use client';
 
 import { ReportQueueView } from '@/components/report-queue-view';
-import { ScreenAccessGuard } from '@/components/screen-banner';
 import type { ReportItem } from '@/hooks/useReportQueue';
 
 // Report bài đăng — B1 (tai-lieu-chuc-nang.md #86). "Xem EXIF" hiện luôn trống — exifCapturedAt
@@ -9,14 +8,12 @@ import type { ReportItem } from '@/hooks/useReportQueue';
 // ModerationService.checkExifMismatch) — hiện đúng trạng thái thật thay vì giả vờ có dữ liệu.
 export default function ReportsB1Page() {
   return (
-    <ScreenAccessGuard screen="B1">
-      <ReportQueueView
-        endpoint="/api/admin/reports/posts"
-        severeActionLabel="Gỡ bài"
-        extraField="removePost"
-        renderContent={(report) => ({ node: <PostContent report={report} />, canAct: true })}
-      />
-    </ScreenAccessGuard>
+    <ReportQueueView
+      endpoint="/api/admin/reports/posts"
+      severeActionLabel="Gỡ bài"
+      extraField="removePost"
+      renderContent={(report) => ({ node: <PostContent report={report} />, canAct: true })}
+    />
   );
 }
 

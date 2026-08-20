@@ -3,7 +3,6 @@
 import * as React from 'react';
 
 import { Pill } from '@/components/pill';
-import { ScreenAccessGuard } from '@/components/screen-banner';
 import {
   useAccountLock,
   type AccountStatus,
@@ -33,47 +32,45 @@ export default function UsersC5Page() {
   const [reason, setReason] = React.useState('');
 
   return (
-    <ScreenAccessGuard screen="C5">
-      <div className="max-w-xl">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            void lookup(query);
-          }}
-          className="flex gap-2"
+    <div className="max-w-xl">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          void lookup(query);
+        }}
+        className="flex gap-2"
+      >
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="SĐT hoặc mã tài khoản"
+          className="border-border flex-1 rounded-md border px-3 py-2 text-sm"
+        />
+        <button
+          type="submit"
+          disabled={loading || !query.trim()}
+          className="rounded-md bg-stone-900 px-3.5 py-2 text-xs font-semibold text-white disabled:opacity-50"
         >
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="SĐT hoặc mã tài khoản"
-            className="border-border flex-1 rounded-md border px-3 py-2 text-sm"
-          />
-          <button
-            type="submit"
-            disabled={loading || !query.trim()}
-            className="rounded-md bg-stone-900 px-3.5 py-2 text-xs font-semibold text-white disabled:opacity-50"
-          >
-            {loading ? 'Đang tìm…' : 'Tìm'}
-          </button>
-        </form>
+          {loading ? 'Đang tìm…' : 'Tìm'}
+        </button>
+      </form>
 
-        {error ? (
-          <div className="border-admin-red-soft-border bg-admin-red-soft text-admin-red mt-4 rounded-lg border px-4 py-3 text-sm">
-            {error}
-          </div>
-        ) : null}
+      {error ? (
+        <div className="border-admin-red-soft-border bg-admin-red-soft text-admin-red mt-4 rounded-lg border px-4 py-3 text-sm">
+          {error}
+        </div>
+      ) : null}
 
-        {result ? (
-          <UserPanel
-            result={result}
-            reason={reason}
-            setReason={setReason}
-            applying={applying}
-            onApply={(status, restrictedUntil) => void applyStatus(status, reason, restrictedUntil)}
-          />
-        ) : null}
-      </div>
-    </ScreenAccessGuard>
+      {result ? (
+        <UserPanel
+          result={result}
+          reason={reason}
+          setReason={setReason}
+          applying={applying}
+          onApply={(status, restrictedUntil) => void applyStatus(status, reason, restrictedUntil)}
+        />
+      ) : null}
+    </div>
   );
 }
 

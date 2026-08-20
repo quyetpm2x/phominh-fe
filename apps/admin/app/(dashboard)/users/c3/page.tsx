@@ -1,17 +1,14 @@
 import { Pill } from '@/components/pill';
-import { ScreenAccessGuard } from '@/components/screen-banner';
 import { CLUSTERS, type FraudCluster } from '@/lib/mock/users';
 
 // Thông đồng vote — C3 (tài liệu nghiệp vụ).
 export default function UsersC3Page() {
   return (
-    <ScreenAccessGuard screen="C3">
-      <div className="flex flex-col gap-3.5">
-        {CLUSTERS.map((c) => (
-          <ClusterCard key={c.id} cluster={c} />
-        ))}
-      </div>
-    </ScreenAccessGuard>
+    <div className="flex flex-col gap-3.5">
+      {CLUSTERS.map((c) => (
+        <ClusterCard key={c.id} cluster={c} />
+      ))}
+    </div>
   );
 }
 

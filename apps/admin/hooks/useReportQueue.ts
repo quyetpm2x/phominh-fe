@@ -23,6 +23,12 @@ export interface ReportComment {
   author: { alias: string };
 }
 
+export interface ReportMerchant {
+  id: string;
+  businessName: string;
+  addressText: string;
+}
+
 export interface ReportItem {
   id: string;
   reason: string;
@@ -31,6 +37,7 @@ export interface ReportItem {
   createdAt: string;
   post?: ReportPost;
   comment?: ReportComment;
+  merchant?: ReportMerchant;
 }
 
 export interface UpdateStatusInput {

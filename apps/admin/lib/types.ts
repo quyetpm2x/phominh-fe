@@ -1,9 +1,5 @@
 export type Tone = 'ok' | 'warn' | 'bad' | 'neutral';
 
-export type RoleId = 'owner' | 'mod' | 'ops';
-
-export type AclLevel = 'full' | 'view' | 'none';
-
 export type ScreenId =
   | 'A1'
   | 'A2'
@@ -18,12 +14,14 @@ export type ScreenId =
   | 'C3'
   | 'C4'
   | 'C5'
+  | 'C6'
   | 'D1'
   | 'D2'
   | 'D3'
   | 'E1'
   | 'E2'
   | 'E3'
+  | 'E4'
   | 'F1'
   | 'F2'
   | 'F3'
@@ -35,5 +33,8 @@ export type ScreenId =
   | 'G6'
   | 'G7'
   | 'G8'
+  | 'G9'
   | 'H1'
-  | 'I1';
+  | 'I1'
+  | 'I2'
+  | 'J1';

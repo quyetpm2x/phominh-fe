@@ -3,7 +3,6 @@
 import * as React from 'react';
 
 import { ReportQueueView } from '@/components/report-queue-view';
-import { ScreenAccessGuard } from '@/components/screen-banner';
 import type { ReportItem } from '@/hooks/useReportQueue';
 import { useRevealPrivateComment } from '@/hooks/useRevealPrivateComment';
 
@@ -13,7 +12,7 @@ export default function ReportsB3Page() {
   const { revealed, error, pendingId, reveal } = useRevealPrivateComment();
 
   return (
-    <ScreenAccessGuard screen="B3">
+    <>
       {error ? (
         <div className="border-admin-red-soft-border bg-admin-red-soft text-admin-red mb-4 rounded-lg border px-4 py-3 text-sm">
           {error}
@@ -39,7 +38,7 @@ export default function ReportsB3Page() {
           return { node: <RevealedComment report={report} content={content} />, canAct: true };
         }}
       />
-    </ScreenAccessGuard>
+    </>
   );
 }
 

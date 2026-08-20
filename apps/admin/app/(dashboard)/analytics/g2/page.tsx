@@ -1,21 +1,38 @@
-import { ScreenAccessGuard } from '@/components/screen-banner';
-import { GTABS } from '@/lib/mock/analytics';
+'use client';
 
-import { AnalyticsBlockView } from '../_components/analytics-block';
 import { AnalyticsChrome } from '../_components/analytics-chrome';
+import { SnapshotTable, type SnapshotColumn } from '../_components/snapshot-table';
 
-// Sức khỏe nội dung — G2 (tài liệu nghiệp vụ).
+const COLUMNS: SnapshotColumn[] = [
+  { header: 'Bài mới', render: (i) => i.metrics.g2.newPostsCount.toLocaleString('vi-VN') },
+  {
+    header: 'Đời sống / Cửa hàng / Khẩn cấp',
+    render: (i) => {
+      const r = i.metrics.g2.postTypeRatio;
+      return `${r.life}% / ${r.merchant}% / ${r.emergency}%`;
+    },
+  },
+  {
+    header: 'Tuổi TB bài lúc xem',
+    render: (i) =>
+      i.metrics.g2.avgPostAgeHoursWhenViewed === null
+        ? '—'
+        : `${i.metrics.g2.avgPostAgeHoursWhenViewed} giờ`,
+  },
+];
+
+// Sức khỏe nội dung — G2 (tai-lieu-chuc-nang.md #107). "% thời gian feed trống" trong mock gốc
+// KHÔNG tính được — cần theo dõi liên tục (mỗi lần ai đó mở feed), ngoài phạm vi 1 cron chạy 1
+// lần/ngày, không bịa số.
 export default function AnalyticsG2Page() {
-  const tab = GTABS.G2;
-
   return (
-    <ScreenAccessGuard screen="G2">
+    <>
       <AnalyticsChrome current="G2" />
-      <div className="mt-3.5 grid grid-cols-2 gap-3.5">
-        {tab.blocks.map((b) => (
-          <AnalyticsBlockView key={b.title} block={b} />
-        ))}
+      <div className="border-admin-amber-soft-border bg-admin-amber-soft text-admin-amber-text mb-3.5 mt-3.5 rounded-lg border px-4 py-3 text-sm">
+        Chưa tính được &quot;% thời gian feed trống&quot; — cần theo dõi liên tục, ngoài phạm vi
+        snapshot tính 1 lần/ngày.
       </div>
-    </ScreenAccessGuard>
+      <SnapshotTable columns={COLUMNS} />
+    </>
   );
 }

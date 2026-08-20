@@ -1,4 +1,4 @@
-import type { RoleId, ScreenId } from './types';
+import type { ScreenId } from './types';
 
 export interface NavItem {
   id: ScreenId;
@@ -11,39 +11,6 @@ export interface NavGroup {
   label: string;
   items: NavItem[];
 }
-
-export interface RoleDef {
-  id: RoleId;
-  name: string;
-  full: string;
-  job: string;
-  people: number;
-}
-
-// Ported từ ROLES trong Admin.dc.html.
-export const ROLES: RoleDef[] = [
-  {
-    id: 'owner',
-    name: 'Chủ sở hữu',
-    full: 'Chủ sở hữu (Owner)',
-    job: 'Toàn quyền, cấp phát và thu hồi quyền của admin khác',
-    people: 2,
-  },
-  {
-    id: 'mod',
-    name: 'Kiểm duyệt viên',
-    full: 'Kiểm duyệt viên (Moderator)',
-    job: 'Xử lý report, tin khẩn cấp, khóa tài khoản',
-    people: 5,
-  },
-  {
-    id: 'ops',
-    name: 'Vận hành cộng đồng',
-    full: 'Vận hành cộng đồng (Community Ops)',
-    job: 'Cold-start, đăng bài mồi, mời tiểu thương',
-    people: 3,
-  },
-];
 
 const HREF: Record<ScreenId, string> = {
   A1: '/login',
@@ -59,12 +26,14 @@ const HREF: Record<ScreenId, string> = {
   C3: '/users/c3',
   C4: '/users/c4',
   C5: '/users/c5',
+  C6: '/users/c6',
   D1: '/merchants/d1',
   D2: '/merchants/d2',
   D3: '/merchants/d3',
   E1: '/content-ops/e1',
   E2: '/content-ops/e2',
   E3: '/content-ops/e3',
+  E4: '/content-ops/e4',
   F1: '/legal/f1',
   F2: '/legal/f2',
   F3: '/legal/f3',
@@ -76,8 +45,11 @@ const HREF: Record<ScreenId, string> = {
   G6: '/analytics/g6',
   G7: '/analytics/g7',
   G8: '/analytics/g8',
+  G9: '/user-activity',
   H1: '/marketing-leads',
   I1: '/payments',
+  I2: '/leaderboard-snapshots',
+  J1: '/posts',
 };
 
 export function screenHref(id: ScreenId): string {
@@ -99,7 +71,6 @@ export const NAV: NavGroup[] = [
     items: [
       { id: 'A2', name: 'Dashboard tổng quan', href: HREF.A2 },
       { id: 'A3', name: 'Vai trò & phân quyền', href: HREF.A3 },
-      { id: 'A1', name: 'Đăng nhập admin', href: HREF.A1 },
     ],
   },
   {
@@ -120,6 +91,7 @@ export const NAV: NavGroup[] = [
       { id: 'C3', name: 'Thông đồng vote', href: HREF.C3 },
       { id: 'C4', name: 'Tín hiệu gian lận', href: HREF.C4 },
       { id: 'C5', name: 'Khóa/mở khóa tài khoản', href: HREF.C5 },
+      { id: 'C6', name: 'Khiếu nại phạt oan', href: HREF.C6 },
     ],
   },
   {
@@ -136,6 +108,7 @@ export const NAV: NavGroup[] = [
       { id: 'E1', name: 'Đăng bài mồi thủ công', href: HREF.E1 },
       { id: 'E2', name: 'Quản lý khu vực thí điểm', href: HREF.E2 },
       { id: 'E3', name: 'Lớp dữ liệu chính thống', href: HREF.E3 },
+      { id: 'E4', name: 'Quản lý cộng tác viên', href: HREF.E4 },
     ],
   },
   {
@@ -157,6 +130,7 @@ export const NAV: NavGroup[] = [
       { id: 'G6', name: 'Merchant', href: HREF.G6 },
       { id: 'G7', name: 'An toàn & kiểm duyệt', href: HREF.G7 },
       { id: 'G8', name: 'Chi phí vận hành', href: HREF.G8 },
+      { id: 'G9', name: 'Hoạt động người dùng', href: HREF.G9 },
     ],
   },
   {
@@ -165,6 +139,13 @@ export const NAV: NavGroup[] = [
   },
   {
     label: 'I · Thanh toán',
-    items: [{ id: 'I1', name: 'Duyệt chi hộ Momo/VNPay', href: HREF.I1 }],
+    items: [
+      { id: 'I1', name: 'Duyệt chi hộ Momo/VNPay', href: HREF.I1 },
+      { id: 'I2', name: 'Bảng xếp hạng thưởng', href: HREF.I2 },
+    ],
+  },
+  {
+    label: 'J · Nội dung',
+    items: [{ id: 'J1', name: 'Quản lý bài đăng', href: HREF.J1 }],
   },
 ];

@@ -1,7 +1,6 @@
 'use client';
 
 import { Pill } from '@/components/pill';
-import { ScreenAccessGuard } from '@/components/screen-banner';
 import { useEmergencyAdmin, type EmergencyPost } from '@/hooks/useEmergencyAdmin';
 
 // Xác minh tin khẩn cấp — B5 (tai-lieu-chuc-nang.md #90). "Bác bỏ — tin giả" của bản mock gốc
@@ -11,7 +10,7 @@ export default function ReportsB5Page() {
   const { posts, error, pendingId, runAction } = useEmergencyAdmin();
 
   return (
-    <ScreenAccessGuard screen="B5">
+    <>
       {error ? (
         <div className="border-admin-red-soft-border bg-admin-red-soft text-admin-red mb-4 rounded-lg border px-4 py-3 text-sm">
           {error}
@@ -36,7 +35,7 @@ export default function ReportsB5Page() {
           ))}
         </div>
       )}
-    </ScreenAccessGuard>
+    </>
   );
 }
 

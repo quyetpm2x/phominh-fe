@@ -1,21 +1,81 @@
-import { ScreenAccessGuard } from '@/components/screen-banner';
-import { GTABS } from '@/lib/mock/analytics';
-
-import { AnalyticsBlockView } from '../_components/analytics-block';
+'use client';
 import { AnalyticsChrome } from '../_components/analytics-chrome';
 
-// Chi phí vận hành — G8 (tài liệu nghiệp vụ).
+import { useCostEstimate, type CostEstimateReport } from '@/hooks/useCostEstimate';
+
+const vnd = (n: number) => `${n.toLocaleString('vi-VN')}đ`;
+
+// Chi phí vận hành — G8 (tai-lieu-chuc-nang.md #110, bussiness §9.7). CHỈ Owner xem được — backend
+// tự chặn 403 cho admin thường (OwnerOnlyGuard), không phải quyền cấp được qua checkbox thông
+// thường. Số liệu là ƯỚC LƯỢNG (số lượng đếm được × đơn giá cấu hình), không phải hoá đơn thật.
 export default function AnalyticsG8Page() {
-  const tab = GTABS.G8;
+  const { report, error } = useCostEstimate();
 
   return (
-    <ScreenAccessGuard screen="G8">
+    <>
       <AnalyticsChrome current="G8" />
-      <div className="mt-3.5 grid grid-cols-2 gap-3.5">
-        {tab.blocks.map((b) => (
-          <AnalyticsBlockView key={b.title} block={b} />
-        ))}
+
+      {error ? (
+        <div className="border-admin-red-soft-border bg-admin-red-soft text-admin-red mt-3.5 rounded-lg border px-4 py-3 text-sm">
+          {error}
+        </div>
+      ) : null}
+
+      <CostBody report={report} error={error} />
+    </>
+  );
+}
+
+function CostBody({ report, error }: { report: CostEstimateReport | null; error: string | null }) {
+  if (report) return <CostGrid report={report} />;
+  if (error) return null;
+  return <div className="mt-3.5 px-1 py-4 text-sm text-stone-600">Đang tải…</div>;
+}
+
+function CostGrid({ report }: { report: CostEstimateReport }) {
+  return (
+    <>
+      <div className="border-admin-amber-soft-border bg-admin-amber-soft text-admin-amber-text mb-3.5 mt-3.5 rounded-lg border px-4 py-3 text-sm">
+        Số liệu ƯỚC LƯỢNG ({report.windowDays} ngày gần nhất) — nhân số lượng đếm được với đơn giá
+        cấu hình, không phải số hoá đơn thật từ nhà cung cấp.
       </div>
-    </ScreenAccessGuard>
+      <div className="grid grid-cols-2 gap-3.5">
+        <StatCard
+          label="Chi phí SMS OTP"
+          value={vnd(report.smsCostVnd)}
+          hint={`${report.smsCount.toLocaleString('vi-VN')} lượt gửi`}
+        />
+        <StatCard
+          label="Chi phí lưu trữ ảnh (R2)"
+          value={`${vnd(report.storageCostVndPerMonth)} / tháng`}
+          hint={`${report.imageCount.toLocaleString('vi-VN')} ảnh đang lưu`}
+        />
+        <StatCard
+          label="Chi phí Vision API"
+          value={vnd(report.visionApiCostVnd)}
+          hint="Chưa tích hợp — chi phí thật sự là 0"
+        />
+        <StatCard
+          label="Tổng chi phí ước tính"
+          value={vnd(report.totalCostVnd)}
+          hint="SMS + lưu trữ + Vision API"
+        />
+        <StatCard
+          label="Chi phí trung bình / user hoạt động"
+          value={report.costPerActiveUserVnd === null ? '—' : vnd(report.costPerActiveUserVnd)}
+          hint={`${report.activeUsers.toLocaleString('vi-VN')} user hoạt động trong kỳ`}
+        />
+      </div>
+    </>
+  );
+}
+
+function StatCard({ label, value, hint }: { label: string; value: string; hint: string }) {
+  return (
+    <div className="border-border bg-background rounded-lg border p-6">
+      <div className="text-sm font-semibold">{label}</div>
+      <div className="mt-3 font-mono text-3xl font-semibold text-stone-900">{value}</div>
+      <div className="mt-2 text-xs text-stone-600">{hint}</div>
+    </div>
   );
 }

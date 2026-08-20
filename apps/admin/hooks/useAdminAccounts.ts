@@ -34,6 +34,7 @@ export function useAdminAccounts() {
   const [permissions, setPermissions] = React.useState<PermissionOption[] | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [creating, setCreating] = React.useState(false);
+  const [savingId, setSavingId] = React.useState<string | null>(null);
 
   const load = React.useCallback(async () => {
     setError(null);
@@ -72,5 +73,24 @@ export function useAdminAccounts() {
     }
   }
 
-  return { admins, permissions, error, creating, createAdmin };
+  // Sửa/thu hồi quyền admin đã cấp (tai-lieu-chuc-nang.md #112) — thay THẲNG toàn bộ tập quyền.
+  async function updatePermissions(adminId: string, permissionKeys: string[]): Promise<boolean> {
+    setSavingId(adminId);
+    setError(null);
+    try {
+      await adminFetch(`/api/admin/admins/${adminId}/permissions`, {
+        method: 'PATCH',
+        body: JSON.stringify({ permissionKeys }),
+      });
+      await load();
+      return true;
+    } catch (err) {
+      setError(err instanceof AdminApiError ? err.message : 'Không lưu được quyền');
+      return false;
+    } finally {
+      setSavingId(null);
+    }
+  }
+
+  return { admins, permissions, error, creating, savingId, createAdmin, updatePermissions };
 }

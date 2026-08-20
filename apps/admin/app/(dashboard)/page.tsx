@@ -3,7 +3,6 @@
 import Link from 'next/link';
 
 import { Pill } from '@/components/pill';
-import { ScreenAccessGuard } from '@/components/screen-banner';
 import { useDashboardSummary } from '@/hooks/useDashboardSummary';
 import { AREA_HEALTH, NSM, QUEUES } from '@/lib/mock/dashboard';
 
@@ -12,14 +11,14 @@ import { AREA_HEALTH, NSM, QUEUES } from '@/lib/mock/dashboard';
 // MOCK — nằm ngoài phạm vi "4 số liệu cốt lõi" của mục 85 (cần cron G1-G8 riêng, chưa xây).
 export default function DashboardPage() {
   return (
-    <ScreenAccessGuard screen="A2">
+    <>
       <KpiGrid />
       <div className="mt-4 grid grid-cols-12 gap-4">
         <NsmCard />
         <QueueList />
       </div>
       <AreaHealthTable />
-    </ScreenAccessGuard>
+    </>
   );
 }
 

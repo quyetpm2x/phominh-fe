@@ -91,3 +91,14 @@ export async function adminFetch<T>(path: string, options: RequestInit = {}): Pr
   }
   return (body as Envelope<T>).data;
 }
+
+export function getMe(): Promise<AdminInfo> {
+  return adminFetch<AdminInfo>('/api/admin/me');
+}
+
+export function changeAdminPassword(currentPassword: string, newPassword: string): Promise<void> {
+  return adminFetch('/api/admin/me/password', {
+    method: 'PATCH',
+    body: JSON.stringify({ currentPassword, newPassword }),
+  });
+}

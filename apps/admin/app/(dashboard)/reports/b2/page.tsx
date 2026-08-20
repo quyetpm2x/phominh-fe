@@ -1,20 +1,17 @@
 'use client';
 
 import { ReportQueueView } from '@/components/report-queue-view';
-import { ScreenAccessGuard } from '@/components/screen-banner';
 import type { ReportItem } from '@/hooks/useReportQueue';
 
 // Report bình luận công khai — B2 (tai-lieu-chuc-nang.md #87).
 export default function ReportsB2Page() {
   return (
-    <ScreenAccessGuard screen="B2">
-      <ReportQueueView
-        endpoint="/api/admin/reports/comments-public"
-        severeActionLabel="Ẩn bình luận"
-        extraField="hideComment"
-        renderContent={(report) => ({ node: <CommentContent report={report} />, canAct: true })}
-      />
-    </ScreenAccessGuard>
+    <ReportQueueView
+      endpoint="/api/admin/reports/comments-public"
+      severeActionLabel="Ẩn bình luận"
+      extraField="hideComment"
+      renderContent={(report) => ({ node: <CommentContent report={report} />, canAct: true })}
+    />
   );
 }
 

@@ -32,8 +32,8 @@ export function ReportQueueView({
   renderContent,
 }: {
   endpoint: string;
-  severeActionLabel: string;
-  extraField: 'removePost' | 'hideComment';
+  severeActionLabel?: string;
+  extraField?: 'removePost' | 'hideComment';
   renderContent: (report: ReportItem) => { node: ReactNode; canAct: boolean };
 }) {
   const { reports, error, statusFilter, setStatusFilter, pendingId, updateStatus } =
@@ -112,8 +112,8 @@ function ReportRow({
 }: {
   report: ReportItem;
   renderContent: (report: ReportItem) => { node: ReactNode; canAct: boolean };
-  severeActionLabel: string;
-  extraField: 'removePost' | 'hideComment';
+  severeActionLabel?: string;
+  extraField?: 'removePost' | 'hideComment';
   pending: boolean;
   onUpdateStatus: (input: {
     status: ReportStatus;
@@ -140,8 +140,10 @@ function ReportRow({
           pending={pending}
           onDismiss={() => onUpdateStatus({ status: 'dismissed' })}
           onWarn={(severity) => onUpdateStatus({ status: 'actioned', severity })}
-          onSevere={(severity) =>
-            onUpdateStatus({ status: 'actioned', severity, [extraField]: true })
+          onSevere={
+            extraField
+              ? (severity) => onUpdateStatus({ status: 'actioned', severity, [extraField]: true })
+              : undefined
           }
         />
       ) : null}

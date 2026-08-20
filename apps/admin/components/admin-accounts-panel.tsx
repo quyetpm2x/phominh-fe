@@ -2,14 +2,14 @@
 
 import * as React from 'react';
 
+import { CreateAdminForm } from '@/components/create-admin-form';
+import { EditAdminPermissions } from '@/components/edit-admin-permissions';
 import { Pill } from '@/components/pill';
 import {
   useAdminAccounts,
   type AdminAccountItem,
   type PermissionOption,
 } from '@/hooks/useAdminAccounts';
-
-const INPUT_CLASS = 'border-border rounded-md border px-3 py-2 text-sm';
 
 function initials(name: string): string {
   return name
@@ -19,19 +19,13 @@ function initials(name: string): string {
     .join('');
 }
 
-function groupByName(permissions: PermissionOption[]): Record<string, PermissionOption[]> {
-  const groups: Record<string, PermissionOption[]> = {};
-  for (const p of permissions) {
-    (groups[p.groupName] ??= []).push(p);
-  }
-  return groups;
-}
-
 // Thay AdminsTable mock cũ (tai-lieu-chuc-nang.md #111/#113) — dữ liệu THẬT từ bảng admin_users,
 // không phải mock ADMINS[] nữa.
 export function AdminAccountsPanel() {
-  const { admins, permissions, error, creating, createAdmin } = useAdminAccounts();
+  const { admins, permissions, error, creating, savingId, createAdmin, updatePermissions } =
+    useAdminAccounts();
   const [formOpen, setFormOpen] = React.useState(false);
+  const [editingId, setEditingId] = React.useState<string | null>(null);
 
   return (
     <div className="border-border bg-background mt-4 overflow-hidden rounded-lg border">
@@ -67,22 +61,78 @@ export function AdminAccountsPanel() {
         />
       ) : null}
 
-      <div className="grid grid-cols-12 gap-2 border-b border-stone-100 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
-        <div className="col-span-4">Thành viên</div>
-        <div className="col-span-2">Vai trò</div>
-        <div className="col-span-4">Quyền</div>
-        <div className="col-span-2">Tạo lúc</div>
-      </div>
-      {admins === null ? (
-        <div className="px-5 py-4 text-sm text-stone-600">Đang tải…</div>
-      ) : (
-        admins.map((a) => <AdminRow key={a.id} admin={a} />)
-      )}
+      <AdminAccountsTable
+        admins={admins}
+        permissions={permissions}
+        editingId={editingId}
+        savingId={savingId}
+        onToggleEdit={(id) => setEditingId(editingId === id ? null : id)}
+        onSave={async (id, keys) => {
+          if (await updatePermissions(id, keys)) setEditingId(null);
+        }}
+      />
     </div>
   );
 }
 
-function AdminRow({ admin }: { admin: AdminAccountItem }) {
+function AdminAccountsTable({
+  admins,
+  permissions,
+  editingId,
+  savingId,
+  onToggleEdit,
+  onSave,
+}: {
+  admins: AdminAccountItem[] | null;
+  permissions: PermissionOption[] | null;
+  editingId: string | null;
+  savingId: string | null;
+  onToggleEdit: (id: string) => void;
+  onSave: (id: string, permissionKeys: string[]) => void;
+}) {
+  return (
+    <>
+      <div className="grid grid-cols-12 gap-2 border-b border-stone-100 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
+        <div className="col-span-4">Thành viên</div>
+        <div className="col-span-2">Vai trò</div>
+        <div className="col-span-4">Quyền</div>
+        <div className="col-span-1">Tạo lúc</div>
+        <div className="col-span-1" />
+      </div>
+      {admins === null ? (
+        <div className="px-5 py-4 text-sm text-stone-600">Đang tải…</div>
+      ) : (
+        admins.map((a) => (
+          <AdminRow
+            key={a.id}
+            admin={a}
+            permissions={permissions}
+            editing={editingId === a.id}
+            saving={savingId === a.id}
+            onToggleEdit={() => onToggleEdit(a.id)}
+            onSave={(keys) => onSave(a.id, keys)}
+          />
+        ))
+      )}
+    </>
+  );
+}
+
+function AdminRow({
+  admin,
+  permissions,
+  editing,
+  saving,
+  onToggleEdit,
+  onSave,
+}: {
+  admin: AdminAccountItem;
+  permissions: PermissionOption[] | null;
+  editing: boolean;
+  saving: boolean;
+  onToggleEdit: () => void;
+  onSave: (permissionKeys: string[]) => void;
+}) {
   return (
     <div className="border-stone-75 grid grid-cols-12 items-center gap-2 border-b px-5 py-3 text-sm last:border-0">
       <div className="col-span-4 flex items-center gap-2.5">
@@ -100,143 +150,29 @@ function AdminRow({ admin }: { admin: AdminAccountItem }) {
       <div className="col-span-4 text-xs text-stone-600">
         {admin.permissionKeys.length === 0 ? '—' : `${admin.permissionKeys.length} quyền`}
       </div>
-      <div className="col-span-2 text-xs text-stone-600">
+      <div className="col-span-1 text-xs text-stone-600">
         {new Date(admin.createdAt).toLocaleDateString('vi-VN')}
       </div>
-    </div>
-  );
-}
-
-function CreateAdminForm({
-  permissions,
-  creating,
-  onSubmit,
-}: {
-  permissions: PermissionOption[];
-  creating: boolean;
-  onSubmit: (input: {
-    email: string;
-    password: string;
-    name: string;
-    permissionKeys: string[];
-  }) => void;
-}) {
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [selected, setSelected] = React.useState<Set<string>>(new Set());
-  const groups = groupByName(permissions);
-
-  function toggle(key: string) {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  }
-
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit({ email, password, name, permissionKeys: [...selected] });
-      }}
-      className="border-b border-stone-100 px-5 py-4"
-    >
-      <NameEmailPasswordFields
-        name={name}
-        setName={setName}
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-      />
-      <PermissionGroups groups={groups} selected={selected} onToggle={toggle} />
-      <button
-        type="submit"
-        disabled={creating}
-        className="mt-3 rounded-md bg-stone-900 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-50"
-      >
-        {creating ? 'Đang tạo…' : 'Tạo tài khoản'}
-      </button>
-    </form>
-  );
-}
-
-function NameEmailPasswordFields({
-  name,
-  setName,
-  email,
-  setEmail,
-  password,
-  setPassword,
-}: {
-  name: string;
-  setName: (v: string) => void;
-  email: string;
-  setEmail: (v: string) => void;
-  password: string;
-  setPassword: (v: string) => void;
-}) {
-  return (
-    <div className="grid grid-cols-3 gap-2.5">
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Họ tên"
-        required
-        className={INPUT_CLASS}
-      />
-      <input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        type="email"
-        required
-        className={INPUT_CLASS}
-      />
-      <input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Mật khẩu (tối thiểu 8 ký tự)"
-        type="password"
-        required
-        minLength={8}
-        className={INPUT_CLASS}
-      />
-    </div>
-  );
-}
-
-function PermissionGroups({
-  groups,
-  selected,
-  onToggle,
-}: {
-  groups: Record<string, PermissionOption[]>;
-  selected: Set<string>;
-  onToggle: (key: string) => void;
-}) {
-  return (
-    <div className="mt-3 grid grid-cols-2 gap-3">
-      {Object.entries(groups).map(([groupName, items]) => (
-        <div key={groupName}>
-          <div className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            {groupName}
-          </div>
-          {items.map((p) => (
-            <label key={p.id} className="mt-1 flex items-center gap-1.5 text-sm">
-              <input
-                type="checkbox"
-                checked={selected.has(p.permissionKey)}
-                onChange={() => onToggle(p.permissionKey)}
-              />
-              {p.label}
-            </label>
-          ))}
-        </div>
-      ))}
+      <div className="col-span-1 text-right">
+        {admin.isOwner ? null : (
+          <button
+            type="button"
+            onClick={onToggleEdit}
+            className="rounded-md border border-stone-300 px-2 py-1 text-xs font-medium"
+          >
+            {editing ? 'Đóng' : 'Sửa quyền'}
+          </button>
+        )}
+      </div>
+      {editing && permissions ? (
+        <EditAdminPermissions
+          permissions={permissions}
+          currentKeys={admin.permissionKeys}
+          saving={saving}
+          onSave={onSave}
+          onCancel={onToggleEdit}
+        />
+      ) : null}
     </div>
   );
 }

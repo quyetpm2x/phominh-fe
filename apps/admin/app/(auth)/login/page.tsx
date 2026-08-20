@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
-import { AdminApiError, adminLogin } from '@/lib/adminApi';
+import { AdminApiError, adminLogin, getAdminToken, getMe } from '@/lib/adminApi';
 
 // Đăng nhập admin — A1 (tài liệu nghiệp vụ). ĐÃ NỐI backend thật (POST /api/admin/auth/login,
 // AdminService.login — bcrypt + JWT ký riêng, không qua OTP Supabase). Bỏ bước 2FA giả lập của
@@ -15,6 +15,20 @@ export default function LoginPage() {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
+  // Đã đăng nhập từ trước (còn cookie hợp lệ) mà vẫn vào /login → đẩy thẳng về dashboard, không
+  // hiện lại form. Xác thực bằng GET /api/admin/me thay vì chỉ tin cookie còn tồn tại, vì cookie
+  // có thể đã hết hạn phía backend dù max-age phía trình duyệt chưa tới (lệch giờ, token bị thu hồi...).
+  const [checkingSession, setCheckingSession] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!getAdminToken()) {
+      setCheckingSession(false);
+      return;
+    }
+    void getMe()
+      .then(() => router.replace('/'))
+      .catch(() => setCheckingSession(false));
+  }, [router]);
 
   async function signIn(e: React.FormEvent) {
     e.preventDefault();
@@ -29,6 +43,8 @@ export default function LoginPage() {
       setLoading(false);
     }
   }
+
+  if (checkingSession) return null;
 
   return (
     <div className="bg-background text-foreground flex h-screen">
