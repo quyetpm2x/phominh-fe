@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '@ocean-news/ui/src/styles/theme.css';
+@import '@pho-minh/ui/src/styles/theme.css';
 
 /* Bảng màu Admin Console — ghi đè các biến semantic dùng chung trong theme.css bằng nguồn
    Admin.dc.html (packages/design-tokens/src/colors.ts: stone/adminGreen/adminAmber/adminRed).
