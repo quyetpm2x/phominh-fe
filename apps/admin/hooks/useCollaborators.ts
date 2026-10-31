@@ -5,7 +5,7 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 
 export interface CollaboratorStatsItem {
   id: string;
-  alias: string;
+  name: string;
   phoneNumber: string;
   createdAt: string;
   postsCount: number;

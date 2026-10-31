@@ -5,6 +5,7 @@ import * as React from 'react';
 import { ReportQueueView } from '@/components/report-queue-view';
 import type { ReportItem } from '@/hooks/useReportQueue';
 import { useRevealPrivateComment } from '@/hooks/useRevealPrivateComment';
+import { displayName } from '@/lib/post-detail-labels';
 
 // Bình luận riêng tư bị report — B3 (tai-lieu-chuc-nang.md #88, bussiness §9.9). Nội dung KHÔNG
 // hiện cho tới khi admin ghi lý do — mỗi lượt mở được ghi vào sensitive_data_access_logs.
@@ -83,7 +84,7 @@ function RevealedComment({ report, content }: { report: ReportItem; content: str
     <div>
       <div className="text-sm leading-snug">{content}</div>
       <div className="mt-1 text-xs text-stone-600">
-        {comment?.author.alias} ·{' '}
+        {comment ? displayName(comment.author.realName, comment.author.nickname) : ''} ·{' '}
         {comment ? new Date(comment.createdAt).toLocaleString('vi-VN') : ''}
       </div>
     </div>

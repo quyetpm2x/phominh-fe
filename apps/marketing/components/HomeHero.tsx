@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export function HomeHero() {
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(155deg,#FAFBFC_0%,#E9F0FC_40%,#FFF1CE_100%)]">
@@ -40,12 +38,6 @@ export function HomeHero() {
               Tải app — dành cho cư dân
               <span className="animate-pmsweep absolute inset-y-0 left-0 w-10 bg-[linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0))]" />
             </button>
-            <Link
-              href="/merchant"
-              className="border-primary text-primary-darker rounded-2xl border-[1.5px] bg-white/70 px-[26px] py-4 text-base font-semibold transition-all hover:-translate-y-0.5 hover:bg-white"
-            >
-              Đăng ký làm đối tác
-            </Link>
           </div>
           <div className="animate-pmup mt-7 flex flex-wrap gap-2.5 [animation-delay:0.32s]">
             <span className="border-border flex items-center gap-2 rounded-full border bg-white/75 px-3.5 py-2 text-[13px] font-medium text-gray-900">
@@ -70,9 +62,9 @@ export function HomeHero() {
             </div>
             <div>
               <div className="text-accent-text font-mono text-2xl font-bold tracking-[-0.02em]">
-                37
+                41
               </div>
-              <div className="mt-0.5 text-[13px] text-gray-800">quán đang mở cửa</div>
+              <div className="mt-0.5 text-[13px] text-gray-800">tin mới hôm nay</div>
             </div>
             <div>
               <div className="text-foreground font-mono text-2xl font-bold tracking-[-0.02em]">

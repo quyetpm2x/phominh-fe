@@ -11,7 +11,7 @@ export interface ReportPost {
   content: string;
   status: string;
   createdAt: string;
-  author: { alias: string };
+  author: { realName: string | null; nickname: string | null };
   images: { url: string; exifCapturedAt: string | null }[];
 }
 
@@ -20,13 +20,7 @@ export interface ReportComment {
   content?: string; // absent ở hàng đợi riêng tư cho tới khi reveal (mục 88)
   isHidden: boolean;
   createdAt: string;
-  author: { alias: string };
-}
-
-export interface ReportMerchant {
-  id: string;
-  businessName: string;
-  addressText: string;
+  author: { realName: string | null; nickname: string | null };
 }
 
 export interface ReportItem {
@@ -37,7 +31,6 @@ export interface ReportItem {
   createdAt: string;
   post?: ReportPost;
   comment?: ReportComment;
-  merchant?: ReportMerchant;
 }
 
 export interface UpdateStatusInput {

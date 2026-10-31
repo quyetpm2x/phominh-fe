@@ -90,13 +90,13 @@ function UserPanel({
   return (
     <div className="border-border bg-background mt-4 rounded-lg border p-4">
       <div className="flex items-center gap-2">
-        <span className="font-semibold">{result.alias}</span>
+        <span className="font-semibold">{result.realName ?? 'Cư dân Phố Mình'}</span>
         <span className="text-sm text-stone-600">{result.phoneNumber}</span>
         <Pill tone={STATUS_TONE[result.accountStatus]}>{STATUS_LABEL[result.accountStatus]}</Pill>
       </div>
       <div className="mt-1 text-xs text-stone-600">
-        {result.realName ? `Tên thật: ${result.realName} · ` : ''}Điểm E1: {result.trustScoreE1} ·
-        Tham gia {new Date(result.createdAt).toLocaleDateString('vi-VN')}
+        Biệt danh: {result.nickname ?? '—'} · Điểm E1: {result.trustScoreE1} · Tham gia{' '}
+        {new Date(result.createdAt).toLocaleDateString('vi-VN')}
       </div>
       {result.statusReason ? (
         <div className="mt-1.5 text-xs text-stone-700">

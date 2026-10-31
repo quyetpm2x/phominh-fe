@@ -141,7 +141,8 @@ function ProfileCard({ detail }: { detail: AdminUserDetail }) {
   const facts: { k: string; v: string }[] = [
     { k: 'SĐT', v: detail.phoneNumber },
     { k: 'Tên thật', v: detail.realName ?? '—' },
-    { k: 'Điểm uy tín E1', v: String(detail.trustScoreE1) },
+    { k: 'Biệt danh', v: detail.nickname ?? '—' },
+    { k: 'Người đang tin tưởng', v: String(detail.trusters) },
     { k: 'Ngày tham gia', v: new Date(detail.createdAt).toLocaleDateString('vi-VN') },
     { k: 'Bài đăng', v: String(detail.postCount) },
     { k: 'Bình luận', v: String(detail.commentCount) },
@@ -154,10 +155,10 @@ function ProfileCard({ detail }: { detail: AdminUserDetail }) {
     <div className="border-border bg-background w-72 flex-none rounded-lg border p-5">
       <div className="flex items-center gap-3">
         <div className="bg-muted flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold">
-          {detail.alias.slice(0, 2).toUpperCase()}
+          {detail.name.slice(0, 2).toUpperCase()}
         </div>
         <div>
-          <div className="text-sm font-semibold">{detail.alias}</div>
+          <div className="text-sm font-semibold">{detail.name}</div>
           <div className="text-xs text-stone-600">{detail.trustBadgeLabel}</div>
         </div>
       </div>

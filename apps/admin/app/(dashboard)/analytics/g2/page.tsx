@@ -6,10 +6,10 @@ import { SnapshotTable, type SnapshotColumn } from '../_components/snapshot-tabl
 const COLUMNS: SnapshotColumn[] = [
   { header: 'Bài mới', render: (i) => i.metrics.g2.newPostsCount.toLocaleString('vi-VN') },
   {
-    header: 'Đời sống / Cửa hàng / Khẩn cấp',
+    header: 'Đời sống / Khẩn cấp',
     render: (i) => {
       const r = i.metrics.g2.postTypeRatio;
-      return `${r.life}% / ${r.merchant}% / ${r.emergency}%`;
+      return `${r.life}% / ${r.emergency}%`;
     },
   },
   {

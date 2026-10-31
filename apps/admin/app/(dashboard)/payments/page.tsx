@@ -150,7 +150,7 @@ function PayoutRow({
         </div>
         <div className="mt-1.5 text-sm leading-snug">
           <span className="font-semibold">{payout.amount.toLocaleString('vi-VN')}₫</span> ·{' '}
-          {payout.userAlias} ({payout.userPhoneNumber}) · {SOURCE_LABEL[payout.source]}
+          {payout.userName} ({payout.userPhoneNumber}) · {SOURCE_LABEL[payout.source]}
         </div>
         <div className="mt-0.5 text-xs text-stone-600">
           Nhận vào {payout.bankCode} · {payout.accountHolderName}

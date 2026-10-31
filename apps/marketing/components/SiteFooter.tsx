@@ -41,12 +41,6 @@ export function SiteFooter() {
           <Link href="/" className="text-[14.5px] text-[#E8EBEE] no-underline">
             Trang chủ
           </Link>
-          <Link href="/merchant" className="text-[14.5px] text-[#E8EBEE] no-underline">
-            Cho tiểu thương
-          </Link>
-          <Link href="/pricing" className="text-[14.5px] text-[#E8EBEE] no-underline">
-            Bảng giá
-          </Link>
         </div>
 
         <div className="flex flex-col gap-2.5">
@@ -67,7 +61,7 @@ export function SiteFooter() {
           <Link href="/contact" className="text-[14.5px] text-[#E8EBEE] no-underline">
             Liên hệ &amp; FAQ
           </Link>
-          <span className="text-sm text-gray-600">Đăng ký đối tác: {CONTACT_EMAILS.merchant}</span>
+          <span className="text-sm text-gray-600">Hỗ trợ: {CONTACT_EMAILS.support}</span>
           <span className="text-sm text-gray-600">{CONTACT_PHONE} · 8h–18h</span>
         </div>
       </div>

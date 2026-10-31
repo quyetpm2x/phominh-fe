@@ -97,12 +97,6 @@ export default function AboutPage() {
       {/* ===== CTA ===== */}
       <section className="mt-14 flex flex-wrap gap-3 border-t border-gray-300 pt-9">
         <Link
-          href="/merchant"
-          className="from-accent-dark to-accent text-ink rounded-2xl bg-gradient-to-br px-[26px] py-4 text-base font-bold no-underline shadow-[0_10px_24px_rgba(255,201,60,.3)] transition-transform hover:-translate-y-0.5"
-        >
-          Đăng ký làm đối tác
-        </Link>
-        <Link
           href="/contact"
           className="border-gray-450 text-foreground rounded-2xl border-[1.5px] px-[26px] py-4 text-base font-semibold no-underline"
         >

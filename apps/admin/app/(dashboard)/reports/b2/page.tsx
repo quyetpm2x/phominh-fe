@@ -2,6 +2,7 @@
 
 import { ReportQueueView } from '@/components/report-queue-view';
 import type { ReportItem } from '@/hooks/useReportQueue';
+import { displayName } from '@/lib/post-detail-labels';
 
 // Report bình luận công khai — B2 (tai-lieu-chuc-nang.md #87).
 export default function ReportsB2Page() {
@@ -23,7 +24,8 @@ function CommentContent({ report }: { report: ReportItem }) {
     <div>
       <div className="text-sm leading-snug">{comment.content}</div>
       <div className="mt-1 text-xs text-stone-600">
-        {comment.author.alias} · {new Date(comment.createdAt).toLocaleString('vi-VN')}
+        {displayName(comment.author.realName, comment.author.nickname)} ·{' '}
+        {new Date(comment.createdAt).toLocaleString('vi-VN')}
         {comment.isHidden ? ' · Đã bị ẩn trước đó' : ''}
       </div>
     </div>

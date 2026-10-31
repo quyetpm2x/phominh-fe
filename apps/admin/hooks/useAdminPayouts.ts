@@ -8,7 +8,7 @@ export type PayoutStatus = 'pending' | 'processing' | 'success' | 'failed';
 export interface AdminPayoutItem {
   id: string;
   userId: string;
-  userAlias: string;
+  userName: string;
   userPhoneNumber: string;
   amount: number;
   source: 'leaderboard' | 'referral';

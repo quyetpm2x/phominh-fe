@@ -23,13 +23,12 @@ export const G2: GTab = {
       kind: 'donut',
       title: 'Tỷ lệ loại bài',
       desc: 'Phát hiện nếu feed lệch hẳn về một loại nội dung',
-      center: '66%',
+      center: '92%',
       centerNote: 'đời sống',
-      foot: 'Ngưỡng theo dõi: bài merchant vượt 40% thì feed bắt đầu giống chợ rao vặt',
+      foot: 'Ngưỡng theo dõi: bài khẩn cấp vượt 15% thì cần rà soát báo động sai',
       segs: [
-        { l: 'Đời sống', v: '66%', pct: 66, tone: 'ok' },
-        { l: 'Merchant', v: '28%', pct: 28, tone: 'warn' },
-        { l: 'Khẩn cấp', v: '6%', pct: 6, tone: 'bad' },
+        { l: 'Đời sống', v: '92%', pct: 92, tone: 'ok' },
+        { l: 'Khẩn cấp', v: '8%', pct: 8, tone: 'bad' },
       ],
     },
     {

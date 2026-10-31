@@ -15,16 +15,19 @@ export const STATUS_TONE: Record<AdminPostDetail['status'], Tone> = {
 
 export const POST_TYPE_LABEL: Record<AdminPostListItem['postType'], string> = {
   life: 'Đời sống',
-  merchant: 'Merchant',
   emergency: 'Khẩn cấp',
 };
 
-export function initials(alias: string): string {
-  return alias.slice(0, 2).toUpperCase();
+export function initials(name: string): string {
+  return name.slice(0, 2).toUpperCase();
 }
 
-// "Tên chính (Biệt danh)" — realName là tuỳ chọn user tự đặt (null nếu chưa đặt), alias luôn có
-// sẵn nên khi không có realName chỉ hiện mỗi alias, không để dấu ngoặc rỗng.
-export function displayName(alias: string, realName: string | null): string {
-  return realName ? `${realName} (${alias})` : alias;
+// Tên dự phòng khớp backend (REAL_NAME_FALLBACK) cho user cũ chưa điền tên thật.
+const REAL_NAME_FALLBACK = 'Cư dân Phố Mình';
+
+// "Tên thật (biệt danh: X)" — admin thấy cả 2 để đối chiếu bài/bình luận ẩn danh khi kiểm duyệt.
+// Biệt danh chỉ có khi user tự đặt (null nếu chưa đặt) — khi đó chỉ hiện tên thật, không để ngoặc rỗng.
+export function displayName(realName: string | null, nickname: string | null): string {
+  const name = realName?.trim() || REAL_NAME_FALLBACK;
+  return nickname ? `${name} (biệt danh: ${nickname})` : name;
 }

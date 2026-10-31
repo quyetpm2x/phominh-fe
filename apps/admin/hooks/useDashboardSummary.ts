@@ -7,10 +7,9 @@ export interface DashboardSummary {
   newUsersToday: number;
   newPostsToday: number;
   pendingReports: number;
-  activeMerchants: number;
 }
 
-// 4 số liệu cốt lõi (tai-lieu-chuc-nang.md #85) — dữ liệu THẬT, đếm trực tiếp lúc gọi (không qua
+// 3 số liệu cốt lõi (tai-lieu-chuc-nang.md #85) — dữ liệu THẬT, đếm trực tiếp lúc gọi (không qua
 // snapshot cron chưa xây).
 export function useDashboardSummary() {
   const router = useRouter();

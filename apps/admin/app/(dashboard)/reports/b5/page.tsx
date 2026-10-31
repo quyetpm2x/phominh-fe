@@ -2,6 +2,7 @@
 
 import { Pill } from '@/components/pill';
 import { useEmergencyAdmin, type EmergencyPost } from '@/hooks/useEmergencyAdmin';
+import { displayName } from '@/lib/post-detail-labels';
 
 // Xác minh tin khẩn cấp — B5 (tai-lieu-chuc-nang.md #90). "Bác bỏ — tin giả" của bản mock gốc
 // CHƯA làm — cần luồng report + trừng phạt ngược riêng cho tác giả, chưa có thiết kế/quyết định
@@ -65,7 +66,8 @@ function EmergencyCard({
         <div className="flex items-center gap-2.5">
           <Pill tone={status.tone}>{status.label}</Pill>
           <span className="font-mono text-xs text-stone-500">
-            {new Date(post.createdAt).toLocaleString('vi-VN')} · {post.authorAlias}
+            {new Date(post.createdAt).toLocaleString('vi-VN')} ·{' '}
+            {displayName(post.authorName, post.authorNickname)}
           </span>
         </div>
         <div className="mt-2.5 text-base font-semibold leading-snug">{post.content}</div>

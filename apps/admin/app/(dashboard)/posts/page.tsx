@@ -21,7 +21,6 @@ const STATUS_TONE: Record<AdminPostListItem['status'], Tone> = {
 
 const POST_TYPE_LABEL: Record<AdminPostListItem['postType'], string> = {
   life: 'Đời sống',
-  merchant: 'Merchant',
   emergency: 'Khẩn cấp',
 };
 
@@ -111,7 +110,10 @@ function PostRow({
         <p className="truncate">{p.content || '(không có nội dung chữ)'}</p>
         {p.isSeeded && <span className="text-admin-amber-text text-xs">Bài mồi admin</span>}
       </div>
-      <div className="col-span-2 truncate text-xs font-medium text-stone-700">{p.authorAlias}</div>
+      <div className="col-span-2 min-w-0 text-xs">
+        <span className="block truncate font-medium text-stone-700">{p.authorName}</span>
+        <span className="block truncate text-stone-500">Biệt danh: {p.authorNickname ?? '—'}</span>
+      </div>
       <div className="col-span-1 text-xs text-stone-700">{POST_TYPE_LABEL[p.postType]}</div>
       <div className="col-span-1">
         <Pill tone={STATUS_TONE[p.status]}>{STATUS_LABEL[p.status]}</Pill>

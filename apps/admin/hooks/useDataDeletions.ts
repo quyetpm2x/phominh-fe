@@ -6,7 +6,7 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 export interface PendingDeletionItem {
   id: string;
   userId: string;
-  alias: string;
+  name: string;
   phoneNumber: string;
   requestedAt: string;
   daysRemaining: number;

@@ -8,7 +8,6 @@ import { useSeedContent, type SeedPostItem } from '@/hooks/useSeedContent';
 
 const POST_TYPE_LABEL: Record<SeedPostItem['postType'], string> = {
   life: 'Đời sống',
-  merchant: 'Merchant',
   emergency: 'Khẩn cấp',
 };
 

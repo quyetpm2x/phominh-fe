@@ -13,7 +13,6 @@ export interface PilotAreaItem {
   createdAt: string;
   userCount: number;
   postCount: number;
-  merchantCount: number;
 }
 
 export interface CreatePilotAreaInput {

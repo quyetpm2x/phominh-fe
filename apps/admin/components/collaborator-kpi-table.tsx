@@ -86,7 +86,7 @@ function CollaboratorRow({
   return (
     <div className="border-stone-75 grid grid-cols-12 items-center gap-2 border-b px-5 py-3 text-sm last:border-0">
       <div className="col-span-3">
-        <span className="block font-medium">{item.alias}</span>
+        <span className="block font-medium">{item.name}</span>
         <span className="block font-mono text-xs text-stone-600">{item.phoneNumber}</span>
       </div>
       <div className="col-span-2 font-mono">{kpiCell(item.postsCount, item.postsTarget)}</div>

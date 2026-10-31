@@ -70,7 +70,7 @@ function AppealCard({
     <div className="border-border bg-background rounded-lg border p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <span className="font-medium">{item.userAlias}</span>
+          <span className="font-medium">{item.userName}</span>
           <span className="ml-2 font-mono text-xs text-stone-600">{item.userPhone}</span>
         </div>
         <div className="flex items-center gap-2">

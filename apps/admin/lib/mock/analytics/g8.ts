@@ -66,7 +66,7 @@ export const G8: GTab = {
     {
       kind: 'table',
       title: 'Dự báo chi phí khi quy mô tăng',
-      desc: 'Ước tính nhanh để biết khi nào cần tăng giá Premium Listing hoặc gọi vốn',
+      desc: 'Ước tính nhanh để biết khi nào cần tìm thêm nguồn thu hoặc gọi vốn',
       wide: true,
       action: 'Chỉnh giả định',
       foot: 'Giả định: chi phí biến đổi theo số tài khoản mới và số ảnh đăng, chi phí cố định giữ nguyên 1,2 tr₫/tháng',
@@ -84,7 +84,7 @@ export const G8: GTab = {
           '5.000',
           '16,4 tr₫',
           '3.280₫',
-          { v: 'Cần mở bán Premium', tone: 'warn' },
+          { v: 'Cần thêm nguồn thu', tone: 'warn' },
         ],
         [
           { v: 'Gấp ba', bold: true },

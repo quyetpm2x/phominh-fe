@@ -46,7 +46,7 @@ export const G3: GTab = {
       desc: 'Mỗi kênh gắn mã riêng để biết kênh nào thật sự hiệu quả',
       data: [
         { l: 'QR standee', v: 31, fmt: '31%', tone: 'ok' },
-        { l: 'Merchant giới thiệu', v: 27, fmt: '27%', tone: 'ok' },
+        { l: 'Người dùng giới thiệu', v: 27, fmt: '27%', tone: 'ok' },
         { l: 'Group Facebook', v: 22, fmt: '22%' },
         { l: 'Link mời Zalo', v: 13, fmt: '13%' },
         { l: 'Không xác định', v: 7, fmt: '7%', tone: 'neu' },
@@ -67,7 +67,7 @@ export const G3: GTab = {
           { v: 'Tốt nhất', tone: 'ok' },
         ],
         [
-          { v: 'Merchant giới thiệu', bold: true },
+          { v: 'Người dùng giới thiệu', bold: true },
           '943',
           '68%',
           '64%',

@@ -6,7 +6,8 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 export interface EmergencyPost {
   id: string;
   content: string;
-  authorAlias: string;
+  authorName: string;
+  authorNickname: string | null;
   createdAt: string;
   confirmCount: number;
   threshold: number;

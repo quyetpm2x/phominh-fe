@@ -19,7 +19,7 @@ export default function LegalF2Page() {
 
       <div className="border-border bg-background overflow-hidden rounded-lg border">
         <div className="grid grid-cols-12 gap-2 border-b border-stone-100 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
-          <div className="col-span-4">Người dùng</div>
+          <div className="col-span-4">Tên</div>
           <div className="col-span-3">Yêu cầu lúc</div>
           <div className="col-span-3">Còn lại</div>
           <div className="col-span-2">Hành động</div>
@@ -73,7 +73,7 @@ function DeletionRow({
   return (
     <div className="border-stone-75 grid grid-cols-12 items-center gap-2 border-b px-5 py-3 text-sm last:border-0">
       <div className="col-span-4">
-        <span className="block font-medium">{item.alias}</span>
+        <span className="block font-medium">{item.name}</span>
         <span className="block font-mono text-xs text-stone-600">{item.phoneNumber}</span>
       </div>
       <div className="col-span-3 text-stone-700">
@@ -89,7 +89,7 @@ function DeletionRow({
           onClick={() => {
             if (
               window.confirm(
-                `Xoá vĩnh viễn tài khoản "${item.alias}" ngay bây giờ? Không thể hoàn tác.`,
+                `Xoá vĩnh viễn tài khoản "${item.name}" ngay bây giờ? Không thể hoàn tác.`,
               )
             ) {
               onExpedite(item.userId);

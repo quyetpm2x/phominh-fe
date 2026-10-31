@@ -28,7 +28,6 @@ export const AREAS: AreaCard[] = [
       { v: '1.204', k: 'Người dùng' },
       { v: '162', k: 'Bài/ngày' },
       { v: '64%', k: 'Retention D7' },
-      { v: '31', k: 'Merchant' },
     ],
   },
   {
@@ -42,7 +41,6 @@ export const AREAS: AreaCard[] = [
       { v: '842', k: 'Người dùng' },
       { v: '118', k: 'Bài/ngày' },
       { v: '58%', k: 'Retention D7' },
-      { v: '24', k: 'Merchant' },
     ],
   },
   {
@@ -56,7 +54,6 @@ export const AREAS: AreaCard[] = [
       { v: '456', k: 'Người dùng' },
       { v: '74', k: 'Bài/ngày' },
       { v: '41%', k: 'Retention D7' },
-      { v: '15', k: 'Merchant' },
     ],
   },
   {
@@ -70,7 +67,6 @@ export const AREAS: AreaCard[] = [
       { v: '138', k: 'Người dùng' },
       { v: '32', k: 'Bài/ngày' },
       { v: '22%', k: 'Retention D7' },
-      { v: '6', k: 'Merchant' },
     ],
   },
 ];

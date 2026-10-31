@@ -53,14 +53,6 @@ export const QUEUES: QueueItem[] = [
     href: '/reports/b3',
   },
   {
-    id: 'D2',
-    name: 'Nghi ngờ bán chuyên nghiệp',
-    count: '4',
-    age: 'cũ nhất 2 ngày',
-    tone: 'neutral',
-    href: '/merchants/d2',
-  },
-  {
     id: 'F2',
     name: 'Yêu cầu xóa dữ liệu',
     count: '2',

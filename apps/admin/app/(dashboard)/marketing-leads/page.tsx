@@ -6,14 +6,12 @@ import { Pill } from '@/components/pill';
 import { useMarketingLeads, type MarketingLead } from '@/hooks/useMarketingLeads';
 
 const TYPE_LABEL: Record<string, string> = {
-  merchant_signup: 'Đăng ký quán',
   pilot_area_signup: 'Chờ mở khu mới',
   contact: 'Liên hệ',
 };
 
 const TYPE_TABS = [
   { value: undefined, label: 'Tất cả' },
-  { value: 'merchant_signup', label: 'Đăng ký quán' },
   { value: 'pilot_area_signup', label: 'Chờ mở khu mới' },
   { value: 'contact', label: 'Liên hệ' },
 ] as const;
@@ -25,7 +23,7 @@ const HANDLED_TABS = [
 ] as const;
 
 // Dữ liệu THẬT từ bảng marketing_leads (không phải mock — khác toàn bộ các trang khác trong app
-// này) — 3 lead từ web marketing domain chính: đăng ký quán, chờ mở khu mới, liên hệ.
+// này) — 2 lead từ web marketing domain chính: chờ mở khu mới, liên hệ.
 export default function MarketingLeadsPage() {
   const {
     leads,
@@ -174,14 +172,6 @@ function LeadRow({
 }
 
 function LeadPayload({ type, payload }: { type: string; payload: Record<string, string> }) {
-  if (type === 'merchant_signup') {
-    return (
-      <div className="mt-1.5 text-sm leading-snug">
-        <span className="font-semibold">{payload.businessName}</span> · {payload.phoneNumber} ·{' '}
-        {payload.address}
-      </div>
-    );
-  }
   if (type === 'pilot_area_signup') {
     return <div className="mt-1.5 text-sm leading-snug">{payload.phoneNumber}</div>;
   }

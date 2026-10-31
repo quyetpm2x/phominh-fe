@@ -4,7 +4,8 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 
 export interface UserLookupResult {
   id: string;
-  alias: string;
+  nickname: string | null;
+  realName: string | null;
   phoneNumber: string;
 }
 

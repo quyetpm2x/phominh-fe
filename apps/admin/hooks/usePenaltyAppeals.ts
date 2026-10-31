@@ -9,7 +9,7 @@ export interface PenaltyAppealItem {
   explanation: string;
   createdAt: string;
   userId: string;
-  userAlias: string;
+  userName: string;
   userPhone: string;
   penaltyDelta: number;
   penaltySeverity: 'light' | 'medium' | 'severe' | null;

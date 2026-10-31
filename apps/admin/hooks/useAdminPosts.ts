@@ -6,10 +6,12 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 export interface AdminPostListItem {
   id: string;
   content: string;
-  postType: 'life' | 'merchant' | 'emergency';
+  postType: 'life' | 'emergency';
   status: 'active' | 'removed' | 'expired';
   authorId: string;
-  authorAlias: string;
+  authorName: string;
+  // Admin thấy cả biệt danh để đối chiếu bài ẩn danh với người đăng khi kiểm duyệt.
+  authorNickname: string | null;
   imageCount: number;
   voteCount: number;
   commentCount: number;
@@ -26,7 +28,7 @@ interface AdminPostListResult {
 
 export interface AdminCommentNode {
   id: string;
-  authorAlias: string;
+  authorNickname: string | null;
   authorRealName: string | null;
   content: string | null;
   visibility: 'public' | 'private';

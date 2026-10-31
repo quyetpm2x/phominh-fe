@@ -8,7 +8,7 @@ import { AREA_HEALTH, NSM, QUEUES } from '@/lib/mock/dashboard';
 
 // Dashboard tổng quan — A2 (tài liệu nghiệp vụ, mục 85). KpiGrid ĐÃ NỐI dữ liệu THẬT
 // (GET /api/admin/analytics/dashboard-summary). NsmCard/QueueList/AreaHealthTable BÊN DƯỚI VẪN
-// MOCK — nằm ngoài phạm vi "4 số liệu cốt lõi" của mục 85 (cần cron G1-G8 riêng, chưa xây).
+// MOCK — nằm ngoài phạm vi "3 số liệu cốt lõi" của mục 85 (cần cron G1-G8 riêng, chưa xây).
 export default function DashboardPage() {
   return (
     <>
@@ -38,15 +38,10 @@ function KpiGrid() {
     { label: 'User mới hôm nay', value: summary.newUsersToday, hint: 'Tính theo ngày UTC' },
     { label: 'Bài đăng mới hôm nay', value: summary.newPostsToday, hint: 'Không tính bài đã gỡ' },
     { label: 'Report chờ xử lý', value: summary.pendingReports, hint: 'Trạng thái pending' },
-    {
-      label: 'Merchant hoạt động',
-      value: summary.activeMerchants,
-      hint: 'Đã đăng ít nhất 1 bài trong 7 ngày qua',
-    },
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-3.5">
+    <div className="grid grid-cols-3 gap-3.5">
       {items.map((k) => (
         <div key={k.label} className="border-border bg-background rounded-lg border p-4">
           <div className="min-h-8 text-sm leading-snug text-stone-600">{k.label}</div>

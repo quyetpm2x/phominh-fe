@@ -42,7 +42,6 @@ export function SeedPostForm({
           className={SELECT_CLASS}
         >
           <option value="life">Đời sống</option>
-          <option value="merchant">Merchant</option>
           <option value="emergency">Khẩn cấp</option>
         </select>
       </div>

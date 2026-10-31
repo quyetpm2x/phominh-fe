@@ -5,10 +5,12 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 
 export interface AdminUserListItem {
   id: string;
-  alias: string;
+  name: string;
+  nickname: string | null;
   phoneNumber: string;
   accountStatus: 'active' | 'banned' | 'restricted';
   trustScoreE1: number;
+  trusters: number; // số người đang tin tưởng — nguồn của huy hiệu 10 cấp
   trustBadgeLabel: string;
   postCount: number;
   createdAt: string;
@@ -39,7 +41,7 @@ export interface AdminUserDetail extends AdminUserListItem {
   trustHistory: AdminUserTrustHistoryItem[];
 }
 
-// Danh sách người dùng, tìm theo SĐT/bí danh + phân trang offset (tai-lieu-chuc-nang.md #91) —
+// Danh sách người dùng, tìm theo SĐT/tên thật/biệt danh + phân trang offset (tai-lieu-chuc-nang.md #91) —
 // đủ dùng ở quy mô vài trăm user, chưa cần cursor-based cho quy mô lớn hơn nhiều.
 export function useAdminUsersList() {
   const router = useRouter();

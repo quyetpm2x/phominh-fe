@@ -28,7 +28,6 @@
       "prettier --write"
     ],
     "packages/**/*.{ts,tsx}": [
-      "eslint --fix",
       "prettier --write"
     ],
     "*.{json,md}": [

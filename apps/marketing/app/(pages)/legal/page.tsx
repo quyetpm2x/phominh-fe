@@ -14,8 +14,7 @@ const TOC = [
   { href: '#dk2', label: '2. Tài khoản và số điện thoại' },
   { href: '#dk3', label: '3. Nội dung anh chị đăng' },
   { href: '#dk4', label: '4. Nội dung bị cấm' },
-  { href: '#dk5', label: '5. Tài khoản đối tác' },
-  { href: '#dk6', label: '6. Tạm ngưng tài khoản' },
+  { href: '#dk5', label: '5. Tạm ngưng tài khoản' },
   { href: '#qrt', label: 'Chính sách quyền riêng tư', top: true },
   { href: '#qrt1', label: '1. Dữ liệu chúng tôi thu thập' },
   { href: '#qrt2', label: '2. Dữ liệu vị trí GPS' },
@@ -69,8 +68,7 @@ export default function LegalPage() {
         <LegalHeading id="dk2">2. Tài khoản và số điện thoại</LegalHeading>
         <LegalP>
           Mỗi số điện thoại tạo được một tài khoản. Chúng tôi không yêu cầu email hay tên thật. Số
-          điện thoại dùng để xác thực và không hiển thị công khai, trừ khi anh chị là đối tác và tự
-          bật tính năng hiện số theo giờ bán.
+          điện thoại dùng để xác thực và không hiển thị công khai.
         </LegalP>
 
         <LegalHeading id="dk3">3. Nội dung anh chị đăng</LegalHeading>
@@ -87,15 +85,7 @@ export default function LegalPage() {
           và nội dung người lớn. Không đăng ảnh người khác khi họ không đồng ý, đặc biệt là trẻ em.
         </LegalP>
 
-        <LegalHeading id="dk5">5. Tài khoản đối tác</LegalHeading>
-        <LegalP>
-          Quán ăn, cửa hàng đăng ký làm đối tác chịu trách nhiệm về tính chính xác của thông tin bán
-          hàng đã đăng, bao gồm giá, số lượng còn lại và giờ mở cửa. Bài đăng của đối tác được đánh
-          dấu rõ ràng để người xem biết đây là nội dung của cơ sở kinh doanh. {BRAND} không tham gia
-          vào giao dịch giữa anh chị và khách.
-        </LegalP>
-
-        <LegalHeading id="dk6">6. Tạm ngưng tài khoản</LegalHeading>
+        <LegalHeading id="dk5">5. Tạm ngưng tài khoản</LegalHeading>
         <LegalP>
           Tài khoản bị nhiều hàng xóm báo cáo về cùng một hành vi sẽ được xem xét và có thể bị tạm
           ngưng. Anh chị được thông báo lý do và có quyền phản hồi. Anh chị cũng có thể tự xóa tài

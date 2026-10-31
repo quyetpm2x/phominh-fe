@@ -11,5 +11,4 @@ export interface Post {
   expiresAt: string;
   voteCount: number;
   commentCount: number;
-  isMerchantPost: boolean;
 }

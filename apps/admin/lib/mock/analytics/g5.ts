@@ -41,7 +41,7 @@ export const G5: GTab = {
       sub: 'riêng tư trên tổng bình luận',
       target: 'Ngưỡng cảnh báo tự động: 30%',
       action: 'Chỉnh ngưỡng',
-      foot: 'Trong ngưỡng. Riêng bài merchant tỷ lệ riêng tư là 34% — hợp lý vì người mua hỏi giá.',
+      foot: 'Trong ngưỡng.',
     },
     {
       kind: 'table',

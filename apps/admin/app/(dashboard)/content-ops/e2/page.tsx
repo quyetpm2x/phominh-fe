@@ -8,9 +8,9 @@ import { usePilotAreas, type PilotAreaItem } from '@/hooks/usePilotAreas';
 // Quản lý khu vực thí điểm — E2 (tai-lieu-chuc-nang.md #101). Dữ liệu THẬT từ bảng pilot_areas
 // (bảng mới, chưa từng tồn tại trước phiên này — trước đó KHÔNG có khái niệm "khu vực chính thức"
 // nào trong toàn bộ data model). isActive KHÔNG chặn feed/đăng bài thật — thuần cờ theo dõi nội bộ.
-// Số liệu so sánh: 3 chỉ số tính động qua PostGIS (người dùng/bài đăng 30 ngày/merchant trong bán
-// kính) — KHÔNG có "Retention D7" như bản mock gốc, vì cần cơ chế theo dõi cohort riêng chưa xây
-// (liên quan mục 107 — sức khỏe khu vực — vẫn CHỈ CÓ MOCK FE), không bịa số liệu.
+// Số liệu so sánh: 2 chỉ số tính động qua PostGIS (người dùng/bài đăng 30 ngày trong bán kính) —
+// KHÔNG có "Retention D7" như bản mock gốc, vì cần cơ chế theo dõi cohort riêng chưa xây (liên quan
+// mục 107 — sức khỏe khu vực — vẫn CHỈ CÓ MOCK FE), không bịa số liệu.
 export default function ContentOpsE2Page() {
   const { areas, error, creating, togglingId, create, toggleActive } = usePilotAreas();
   const [formOpen, setFormOpen] = useState(false);
@@ -91,7 +91,6 @@ function AreaCard({
   const stats = [
     { k: 'Người dùng', v: area.userCount },
     { k: 'Bài đăng 30 ngày', v: area.postCount },
-    { k: 'Merchant', v: area.merchantCount },
   ];
   return (
     <div className="border-border bg-background rounded-lg border p-5">
@@ -113,7 +112,7 @@ function AreaCard({
       <div className="mt-1 text-xs text-stone-600">
         Mở từ {new Date(area.createdAt).toLocaleDateString('vi-VN')} · bán kính {area.radiusKm}km
       </div>
-      <div className="mt-4 grid grid-cols-3 gap-3">
+      <div className="mt-4 grid grid-cols-2 gap-3">
         {stats.map((s) => (
           <div key={s.k}>
             <div className="text-lg font-bold tracking-tight">{s.v.toLocaleString('vi-VN')}</div>

@@ -19,11 +19,11 @@ const STATUS_TONE: Record<AdminUserListItem['accountStatus'], Tone> = {
   banned: 'bad',
 };
 
-function initials(alias: string): string {
-  return alias.slice(0, 2).toUpperCase();
+function initials(name: string): string {
+  return name.slice(0, 2).toUpperCase();
 }
 
-// Danh sách người dùng, tìm theo SĐT/bí danh (tai-lieu-chuc-nang.md #91) — dữ liệu THẬT từ bảng
+// Danh sách người dùng, tìm theo SĐT/tên thật/biệt danh (tai-lieu-chuc-nang.md #91) — dữ liệu THẬT từ bảng
 // users, thay hẳn mock USERS[] cũ. Chi tiết từng dòng dẫn sang C2 (mục 92).
 export default function UsersC1Page() {
   const { users, total, page, pageSize, error, loading, search, goToPage } = useAdminUsersList();
@@ -42,7 +42,7 @@ export default function UsersC1Page() {
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Tìm theo SĐT hoặc bí danh"
+          placeholder="Tìm theo SĐT, tên thật hoặc biệt danh"
           className="border-border flex-1 rounded-md border px-3 py-2 text-sm"
         />
         <button
@@ -62,10 +62,11 @@ export default function UsersC1Page() {
 
       <div className="border-border bg-background overflow-hidden rounded-lg border">
         <div className="grid grid-cols-12 gap-2 border-b border-stone-100 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
-          <div className="col-span-4">Người dùng</div>
+          <div className="col-span-3">Tên</div>
+          <div className="col-span-2">Biệt danh</div>
           <div className="col-span-2">SĐT</div>
           <div className="col-span-1">Bài đăng</div>
-          <div className="col-span-2">Điểm E1</div>
+          <div className="col-span-1">Người tin</div>
           <div className="col-span-2">Tham gia</div>
           <div className="col-span-1">Trạng thái</div>
         </div>
@@ -102,18 +103,19 @@ function UsersListBody({ users }: { users: AdminUserListItem[] | null }) {
           href={`/users/c2?id=${u.id}`}
           className="border-stone-75 grid grid-cols-12 items-center gap-2 border-b px-5 py-3 text-sm last:border-0"
         >
-          <div className="col-span-4 flex items-center gap-2.5">
+          <div className="col-span-3 flex items-center gap-2.5">
             <span className="bg-muted flex h-7 w-7 flex-none items-center justify-center rounded-full text-xs font-semibold">
-              {initials(u.alias)}
+              {initials(u.name)}
             </span>
             <span className="min-w-0">
-              <span className="block font-medium">{u.alias}</span>
+              <span className="block font-medium">{u.name}</span>
               <span className="block text-xs text-stone-600">{u.trustBadgeLabel}</span>
             </span>
           </div>
+          <div className="col-span-2 truncate text-stone-700">{u.nickname ?? '—'}</div>
           <div className="col-span-2 font-mono text-xs text-stone-700">{u.phoneNumber}</div>
           <div className="col-span-1 text-stone-700">{u.postCount}</div>
-          <div className="col-span-2 font-semibold">{u.trustScoreE1}</div>
+          <div className="col-span-1 font-semibold">{u.trusters}</div>
           <div className="col-span-2 text-stone-700">
             {new Date(u.createdAt).toLocaleDateString('vi-VN')}
           </div>

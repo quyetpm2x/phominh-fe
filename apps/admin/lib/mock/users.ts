@@ -40,7 +40,7 @@ export const USERS: UserRow[] = [
     rep: '304',
     joined: '02/02/2026',
     violations: 'Không',
-    status: 'Merchant',
+    status: 'Hoạt động',
     tone: 'ok',
   },
   {

@@ -11,8 +11,8 @@ const SEVERITY_OPTIONS: { value: Severity; label: string }[] = [
 
 // 3 hành động dùng chung cho B1/B2/B3 (tai-lieu-chuc-nang.md #86-88) — "Giữ" bác report không đổi
 // điểm; "Cảnh cáo"/"severeLabel" đều actioned (ghi E2 theo severity chọn), khác nhau ở việc có
-// gỡ bài/ẩn bình luận luôn hay không. `severeLabel`/`onSevere` optional — D2 (mục 98, report
-// merchant_suspicious) không có hành động "gỡ" tương ứng nào ở backend, chỉ 2 nút Giữ/Cảnh cáo.
+// gỡ bài/ẩn bình luận luôn hay không. `severeLabel`/`onSevere` optional — nút thứ 3 chỉ hiện
+// khi hàng đợi có hành động gỡ/ẩn tương ứng ở backend.
 export function ReportActionBar({
   severeLabel,
   pending,

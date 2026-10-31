@@ -5,30 +5,24 @@ import { useEffect, useState } from 'react';
 import { Pill } from '@/components/pill';
 import { useAdminLeaderboard, type LeaderboardSnapshotEntry } from '@/hooks/useAdminLeaderboard';
 
-const TIER_OPTIONS = [0, 1, 2, 3, 4, 5, 6];
-
 // Xem bảng xếp hạng thưởng đã chốt theo tháng (tai-lieu-chuc-nang.md #116, ScreenId I2) — trước đây
 // route leaderboard chỉ có phía mobile. CHỈ XEM — không có hành động sửa số liệu/phát lại thưởng
-// nào được mô tả trong tài liệu gốc.
+// nào được mô tả trong tài liệu gốc. 1 bảng chung (2026-10-26), điểm = số người tin tưởng tăng ròng.
 export default function LeaderboardSnapshotsPage() {
   const { entries, error, loading, load } = useAdminLeaderboard();
-  const [tier, setTier] = useState(0);
   const [period, setPeriod] = useState('');
 
   useEffect(() => {
-    void load(tier);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tier]);
+    void load();
+  }, [load]);
 
   return (
     <div>
       <FilterBar
-        tier={tier}
-        setTier={setTier}
         period={period}
         setPeriod={setPeriod}
         loading={loading}
-        onSearch={() => void load(tier, period)}
+        onSearch={() => void load(period)}
       />
 
       {error ? (
@@ -40,8 +34,8 @@ export default function LeaderboardSnapshotsPage() {
       <div className="border-border bg-background overflow-hidden rounded-lg border">
         <div className="grid grid-cols-12 gap-2 border-b border-stone-100 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
           <div className="col-span-1">Hạng</div>
-          <div className="col-span-5">Người dùng</div>
-          <div className="col-span-3">Điểm</div>
+          <div className="col-span-5">Tên</div>
+          <div className="col-span-3">Người tin tưởng tăng</div>
           <div className="col-span-3">Tiền thưởng</div>
         </div>
         <SnapshotBody entries={entries} />
@@ -51,15 +45,11 @@ export default function LeaderboardSnapshotsPage() {
 }
 
 function FilterBar({
-  tier,
-  setTier,
   period,
   setPeriod,
   loading,
   onSearch,
 }: {
-  tier: number;
-  setTier: (v: number) => void;
   period: string;
   setPeriod: (v: string) => void;
   loading: boolean;
@@ -67,7 +57,6 @@ function FilterBar({
 }) {
   return (
     <div className="mb-4 flex flex-wrap items-end gap-2">
-      <TierSelect tier={tier} setTier={setTier} />
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -99,34 +88,12 @@ function FilterBar({
   );
 }
 
-function TierSelect({ tier, setTier }: { tier: number; setTier: (v: number) => void }) {
-  return (
-    <div>
-      <label htmlFor="lb-tier" className="mb-1 block text-xs font-semibold text-stone-600">
-        Bậc
-      </label>
-      <select
-        id="lb-tier"
-        value={tier}
-        onChange={(e) => setTier(Number(e.target.value))}
-        className="border-border rounded-md border px-3 py-2 text-sm"
-      >
-        {TIER_OPTIONS.map((t) => (
-          <option key={t} value={t}>
-            Bậc {t}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
 function SnapshotBody({ entries }: { entries: LeaderboardSnapshotEntry[] | null }) {
   if (entries === null) return <div className="px-5 py-4 text-sm text-stone-600">Đang tải…</div>;
   if (entries.length === 0) {
     return (
       <div className="px-5 py-8 text-center text-sm text-stone-600">
-        Chưa có kết quả xếp hạng cho bậc/kỳ này.
+        Chưa có kết quả xếp hạng cho kỳ này.
       </div>
     );
   }
@@ -138,8 +105,8 @@ function SnapshotBody({ entries }: { entries: LeaderboardSnapshotEntry[] | null 
           className="border-stone-75 grid grid-cols-12 items-center gap-2 border-b px-5 py-3 text-sm last:border-0"
         >
           <div className="col-span-1 font-mono font-semibold">#{entry.rank}</div>
-          <div className="col-span-5 font-medium">{entry.alias}</div>
-          <div className="col-span-3 font-mono">{entry.score.toFixed(1)}</div>
+          <div className="col-span-5 font-medium">{entry.name}</div>
+          <div className="col-span-3 font-mono">{entry.score.toLocaleString('vi-VN')}</div>
           <div className="col-span-3">
             {entry.rewardAmount ? (
               <Pill tone="ok">{entry.rewardAmount.toLocaleString('vi-VN')}₫</Pill>

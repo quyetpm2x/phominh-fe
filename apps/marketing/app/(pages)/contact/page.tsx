@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { ContactForm } from '../../../components/ContactForm';
 import { FaqItem } from '../../../components/FaqItem';
-import { BRAND, CONTACT_EMAILS, CONTACT_PHONE, FREE_MONTHS } from '../../../lib/constants';
+import { BRAND, CONTACT_EMAILS, CONTACT_PHONE } from '../../../lib/constants';
 
 export const metadata: Metadata = {
   title: 'Liên hệ & FAQ',
@@ -24,8 +24,7 @@ export default function ContactPage() {
           </div>
           <div className="mt-3.5 flex flex-col gap-2.5">
             <FaqItem question="App có thu phí không?">
-              Không. Với cư dân, {BRAND} miễn phí và không có gói trả tiền nào. Doanh thu trong
-              tương lai đến từ gói đăng bài của cơ sở kinh doanh, không từ người xem.
+              Không. {BRAND} miễn phí cho mọi người dùng và không có gói trả tiền nào.
             </FaqItem>
             <FaqItem question="Vị trí của tôi có bị theo dõi không?">
               Không. Vị trí chỉ được lấy khi bạn đang mở app, không có theo dõi chạy nền và chúng
@@ -48,33 +47,6 @@ export default function ContactPage() {
               .
             </FaqItem>
           </div>
-
-          <div className="text-accent-text mt-9 font-mono text-[11px] tracking-[0.06em]">
-            CÂU HỎI CHO TIỂU THƯƠNG
-          </div>
-          <div className="mt-3.5 flex flex-col gap-2.5">
-            <FaqItem question="Đăng ký mất bao lâu?">
-              Điền ba dòng mất khoảng một phút. Trong vòng một ngày làm việc sẽ có người gọi để mở
-              trang quán cho anh chị. Nếu đang gặp nhân viên tại quán, họ điền hộ và mở luôn tại
-              chỗ.
-            </FaqItem>
-            <FaqItem question="Tôi có cần biết chỉnh ảnh không?">
-              Không cần. Anh chị bấm chụp trong app rồi gõ vài chữ là đăng được. Thực tế ảnh chụp
-              mộc lại được khách tin hơn ảnh chỉnh nhiều.
-            </FaqItem>
-            <FaqItem question={`Hết ${FREE_MONTHS} tháng miễn phí thì sao?`}>
-              Hiện chúng tôi chưa thu phí của quán nào. Khi bắt đầu thu, sẽ báo trước ít nhất 30
-              ngày. Không tự động trừ tiền, vì đăng ký không cần thẻ. Xem{' '}
-              <Link href="/pricing" className="text-accent-text hover:text-[#6E3018]">
-                Bảng giá
-              </Link>
-              .
-            </FaqItem>
-            <FaqItem question="Khách gọi lúc quán đóng thì sao?">
-              Anh chị đặt khung giờ bán. Ngoài giờ đó, số điện thoại và nút gọi Zalo tự ẩn, bài chỉ
-              hiện “Quán đang đóng”.
-            </FaqItem>
-          </div>
         </div>
 
         <div className="border-border top-[92px] rounded-[20px] border bg-white p-7 lg:sticky">
@@ -93,16 +65,7 @@ export default function ContactPage() {
                 {CONTACT_EMAILS.support}
               </a>
             </div>
-            <div>
-              Đăng ký đối tác:{' '}
-              <a
-                href={`mailto:${CONTACT_EMAILS.merchant}`}
-                className="text-accent-text hover:text-[#6E3018]"
-              >
-                {CONTACT_EMAILS.merchant}
-              </a>{' '}
-              · {CONTACT_PHONE}
-            </div>
+            <div>Điện thoại: {CONTACT_PHONE}</div>
             <div>
               Về dữ liệu cá nhân:{' '}
               <a

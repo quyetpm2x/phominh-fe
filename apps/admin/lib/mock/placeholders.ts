@@ -7,7 +7,7 @@ export interface PlaceholderScreen {
   parts: string[];
 }
 
-// Ported từ PAGES trong Admin.dc.html — 12 màn hình mock gốc chỉ mô tả bằng spec, chưa thiết
+// Ported từ PAGES trong Admin.dc.html — 10 màn hình mock gốc chỉ mô tả bằng spec, chưa thiết
 // kế UI thật. Giữ nguyên fidelity của mock: render 1 card mô tả thay vì bịa UI.
 export const PLACEHOLDER_SCREENS: Partial<Record<ScreenId, PlaceholderScreen>> = {
   B2: {
@@ -65,34 +65,13 @@ export const PLACEHOLDER_SCREENS: Partial<Record<ScreenId, PlaceholderScreen>> =
       'Lịch sử khóa/mở khóa của tài khoản, ai thao tác, khi nào',
     ],
   },
-  D2: {
-    name: 'Report nghi ngờ bán chuyên nghiệp',
-    desc: 'Luồng report riêng, theo ngưỡng báo cáo tối thiểu',
-    spec: 'Tách khỏi report vi phạm nội dung thông thường. Một tài khoản chỉ vào hàng đợi này khi đạt ngưỡng báo cáo tối thiểu, tránh việc một vài người dùng đơn lẻ triệt hạ người bán nhỏ.',
-    parts: [
-      'Số lượt report đã nhận so với ngưỡng tối thiểu',
-      'Tần suất và số lượng bài đăng bán hàng trong 30 ngày',
-      'Hành động: yêu cầu chuyển sang tài khoản merchant / giữ nguyên / hạn chế đăng',
-    ],
-  },
-  D3: {
-    name: 'Giám sát ẩn/hiện SĐT theo giờ',
-    desc: 'Phát hiện merchant lạm dụng tính năng để spam telesale',
-    spec: 'Merchant được đặt khung giờ hiển thị số điện thoại. Trang này theo dõi việc dùng tính năng có hợp lý không — ví dụ bật số liên tục 24/7 thay vì theo khung giờ bán hàng thực tế.',
-    parts: [
-      'Bảng merchant kèm khung giờ đã đặt và số giờ bật thực tế mỗi ngày',
-      'Cờ đỏ cho merchant bật liên tục trên 20 giờ/ngày trong 7 ngày liền',
-      'Số lượt bấm hiện SĐT so với số giờ bật — tỷ lệ thấp bất thường là dấu hiệu lạm dụng',
-      'Hành động: nhắc nhở, giới hạn khung giờ, tạm ngưng tính năng',
-    ],
-  },
   E1: {
     name: 'Đăng bài mồi thủ công',
     desc: 'Cho khu vực mới thí điểm chưa đủ người dùng',
     spec: 'Khi một khu mới mở mà chưa đủ người dùng, feed sẽ trống. Admin tự đăng nội dung ban đầu để khu đó có gì để xem trong những ngày đầu.',
     parts: [
       'Chọn khu vực và vị trí đặt bài trên bản đồ',
-      'Soạn nội dung, đính ảnh, chọn loại bài: đời sống / merchant / thông báo',
+      'Soạn nội dung, đính ảnh, chọn loại bài: đời sống / khẩn cấp',
       'Đặt lịch đăng rải trong ngày thay vì dồn một lúc',
       'Đánh dấu nội bộ là bài mồi để tách khỏi số liệu bài đăng của người dùng thật',
     ],

@@ -27,9 +27,6 @@ const HREF: Record<ScreenId, string> = {
   C4: '/users/c4',
   C5: '/users/c5',
   C6: '/users/c6',
-  D1: '/merchants/d1',
-  D2: '/merchants/d2',
-  D3: '/merchants/d3',
   E1: '/content-ops/e1',
   E2: '/content-ops/e2',
   E3: '/content-ops/e3',
@@ -42,7 +39,6 @@ const HREF: Record<ScreenId, string> = {
   G3: '/analytics/g3',
   G4: '/analytics/g4',
   G5: '/analytics/g5',
-  G6: '/analytics/g6',
   G7: '/analytics/g7',
   G8: '/analytics/g8',
   G9: '/user-activity',
@@ -95,14 +91,6 @@ export const NAV: NavGroup[] = [
     ],
   },
   {
-    label: 'D · Merchant',
-    items: [
-      { id: 'D1', name: 'Danh sách merchant', href: HREF.D1 },
-      { id: 'D2', name: 'Report bán chuyên nghiệp', href: HREF.D2, badge: 4 },
-      { id: 'D3', name: 'Giám sát ẩn/hiện SĐT', href: HREF.D3 },
-    ],
-  },
-  {
     label: 'E · Vận hành cộng đồng',
     items: [
       { id: 'E1', name: 'Đăng bài mồi thủ công', href: HREF.E1 },
@@ -127,7 +115,6 @@ export const NAV: NavGroup[] = [
       { id: 'G3', name: 'Tăng trưởng & kích hoạt', href: HREF.G3 },
       { id: 'G4', name: 'Giữ chân người dùng', href: HREF.G4 },
       { id: 'G5', name: 'Tương tác nội dung', href: HREF.G5 },
-      { id: 'G6', name: 'Merchant', href: HREF.G6 },
       { id: 'G7', name: 'An toàn & kiểm duyệt', href: HREF.G7 },
       { id: 'G8', name: 'Chi phí vận hành', href: HREF.G8 },
       { id: 'G9', name: 'Hoạt động người dùng', href: HREF.G9 },

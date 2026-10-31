@@ -8,7 +8,7 @@ interface ErrorBody {
 
 export type PostPublicLeadResult = { ok: true } | { ok: false; error: string };
 
-// path KHÔNG có tiền tố /api/public/ (VD 'merchants', 'pilot-signups', 'contact').
+// path KHÔNG có tiền tố /api/public/ (VD 'pilot-signups', 'contact').
 export async function postPublicLead(path: string, body: unknown): Promise<PostPublicLeadResult> {
   try {
     const res = await fetch(`${BACKEND_API_URL}/api/public/${path}`, {

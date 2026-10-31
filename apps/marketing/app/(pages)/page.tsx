@@ -117,63 +117,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== Merchant CTA ===== */}
-      <section className="text-background relative overflow-hidden bg-[linear-gradient(140deg,#20242B_0%,#2C323C_55%,#20242B_100%)]">
-        <div className="mx-auto grid max-w-[1120px] grid-cols-1 items-center gap-14 px-6 py-[84px] lg:grid-cols-[1.05fr_.95fr]">
-          <div>
-            <div className="text-accent font-mono text-[11px] tracking-[0.08em]">
-              DÀNH CHO QUÁN ĂN &amp; CỬA HÀNG NHỎ
-            </div>
-            <h2 className="mt-4 text-[40px] font-bold leading-[1.12] tracking-[-0.02em] [text-wrap:pretty]">
-              Thông báo còn hàng gì hôm nay — miễn phí, tới đúng khách hàng gần bạn nhất
-            </h2>
-            <p className="mt-4 max-w-[520px] text-[17px] leading-[1.65] text-gray-700 [text-wrap:pretty]">
-              Không cần chạy quảng cáo tốn kém, không cần trả phí đăng bài như một số group khu vực
-              đang thu. Chụp một tấm, gõ vài chữ, khách cách vài phút đi bộ thấy ngay.
-            </p>
-            <Link
-              href="/merchant"
-              className="from-accent-dark to-accent text-ink mt-[30px] inline-block rounded-2xl bg-gradient-to-br px-[26px] py-4 text-base font-bold shadow-[0_12px_28px_rgba(255,201,60,.32)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(255,201,60,.4)]"
-            >
-              Đăng ký làm đối tác — miễn phí 3 tháng đầu
-            </Link>
-          </div>
-          <div className="flex justify-center">
-            <div className="text-foreground w-[340px] rounded-[20px] bg-white p-4 shadow-[0_20px_48px_rgba(0,0,0,.35)]">
-              <div className="flex items-center gap-2.5">
-                <span className="bg-primary-soft-100 text-primary-darker flex h-[38px] w-[38px] items-center justify-center rounded-[11px] text-[15px] font-bold">
-                  L
-                </span>
-                <div className="flex-1">
-                  <div className="text-[14.5px] font-bold">Bún bò Anh Long</div>
-                  <div className="text-[11.5px] text-gray-800">Quán ăn · 240 m · ~3 phút đi bộ</div>
-                </div>
-                <span className="flex flex-col items-center gap-0.5 rounded-[9px] bg-gray-100 px-2.5 py-1.5">
-                  <span className="text-accent-text font-mono text-xs font-semibold">23:41</span>
-                  <span className="text-[8.5px] tracking-[0.04em] text-gray-800">CÒN HẠN</span>
-                </span>
-              </div>
-              <div className="mt-3 flex h-[190px] items-center justify-center rounded-[14px] bg-[repeating-linear-gradient(135deg,#E9ECEF,#E9ECEF_7px,#DCE1E6_7px,#DCE1E6_14px)] font-mono text-[10.5px] font-medium text-gray-800">
-                ẢNH NỒI BÚN CHỤP TRONG APP
-              </div>
-              <div className="mt-3 text-[15.5px] font-semibold leading-[1.4]">
-                Còn 5 suất bún bò, nay nước dùng đậm hơn hôm qua nhé cả nhà
-              </div>
-              <div className="mt-2.5 flex items-center gap-2">
-                <span className="bg-primary-soft-100 text-primary-darker rounded-full px-3 py-1.5 text-[12.5px] font-semibold">
-                  Đang mở cửa
-                </span>
-                <span className="rounded-full bg-gray-100 px-3 py-1.5 text-[12.5px] font-semibold text-gray-800">
-                  Gọi Zalo
-                </span>
-                <span className="flex-1" />
-                <span className="text-[11.5px] text-gray-800">124 lượt xem</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ===== Tin cậy ===== */}
       <section className="mx-auto max-w-[1120px] px-6 py-[84px]">
         <h2 className="max-w-[600px] text-4xl font-bold tracking-[-0.02em] [text-wrap:pretty]">

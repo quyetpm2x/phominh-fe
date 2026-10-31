@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import type { UserLookupResult } from '@/hooks/useCollaboratorActions';
+import { displayName } from '@/lib/post-detail-labels';
 
 // Thêm cộng tác viên (tài liệu bổ sung, thảo luận 2026-08-17) — CTV đã tự đăng ký tài khoản thật
 // qua OTP từ trước, ở đây chỉ tra SĐT (tái dùng route lookup của mục 95) rồi đánh dấu.
@@ -46,7 +47,7 @@ export function AddCollaboratorForm({
       {found ? (
         <div className="mt-2.5 flex items-center justify-between gap-2 rounded-md bg-stone-50 px-3 py-2 text-sm">
           <span>
-            {found.alias} ·{' '}
+            {displayName(found.realName, found.nickname)} ·{' '}
             <span className="font-mono text-xs text-stone-600">{found.phoneNumber}</span>
           </span>
           <button

@@ -5,10 +5,10 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 
 export interface LeaderboardSnapshotEntry {
   userId: string;
-  alias: string;
+  name: string;
   avatarUrl: string | null;
   rank: number;
-  score: number;
+  score: number; // số người tin tưởng tăng ròng trong kỳ
   rewardAmount: number | null;
 }
 
@@ -21,11 +21,11 @@ export function useAdminLeaderboard() {
   const [loading, setLoading] = React.useState(false);
 
   const load = React.useCallback(
-    async (tier: number, period?: string) => {
+    async (period?: string) => {
       setLoading(true);
       setError(null);
       try {
-        const params = new URLSearchParams({ tier: String(tier) });
+        const params = new URLSearchParams();
         if (period?.trim()) params.set('period', period.trim());
         const data = await adminFetch<LeaderboardSnapshotEntry[]>(
           `/api/admin/leaderboard-snapshots?${params.toString()}`,

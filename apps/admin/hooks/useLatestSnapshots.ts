@@ -6,7 +6,7 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 export interface DailySnapshotMetrics {
   g2: {
     newPostsCount: number;
-    postTypeRatio: { life: number; merchant: number; emergency: number };
+    postTypeRatio: { life: number; emergency: number };
     avgPostAgeHoursWhenViewed: number | null;
   };
   g3: {

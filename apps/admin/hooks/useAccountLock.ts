@@ -7,7 +7,7 @@ export type AccountStatus = 'active' | 'banned' | 'restricted';
 
 export interface AdminUserLookupResult {
   id: string;
-  alias: string;
+  nickname: string | null;
   phoneNumber: string;
   realName: string | null;
   accountStatus: AccountStatus;
