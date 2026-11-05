@@ -2,15 +2,18 @@
 
 import { AnalyticsChrome } from '../_components/analytics-chrome';
 import { SnapshotTable, type SnapshotColumn } from '../_components/snapshot-table';
+import { TrendLine } from '../_components/trend-line';
+
+import { AdminError } from '@/components/admin-error';
+import { useAdminResource } from '@/hooks/useAdminResource';
+import { useAnalyticsFilters } from '@/hooks/useAnalyticsFilters';
 
 const COLUMNS: SnapshotColumn[] = [
   { header: 'Bài mới', render: (i) => i.metrics.g2.newPostsCount.toLocaleString('vi-VN') },
   {
-    header: 'Đời sống / Khẩn cấp',
-    render: (i) => {
-      const r = i.metrics.g2.postTypeRatio;
-      return `${r.life}% / ${r.emergency}%`;
-    },
+    header: 'Dòng tin trống',
+    render: (i) =>
+      i.metrics.g2.emptyFeedPercent == null ? '—' : `${i.metrics.g2.emptyFeedPercent}%`,
   },
   {
     header: 'Tuổi TB bài lúc xem',
@@ -21,18 +24,48 @@ const COLUMNS: SnapshotColumn[] = [
   },
 ];
 
-// Sức khỏe nội dung — G2 (tai-lieu-chuc-nang.md #107). "% thời gian feed trống" trong mock gốc
-// KHÔNG tính được — cần theo dõi liên tục (mỗi lần ai đó mở feed), ngoài phạm vi 1 cron chạy 1
-// lần/ngày, không bịa số.
+interface SnapshotDay {
+  snapshotDate: string;
+  metrics: { g2?: { emptyFeedPercent?: number | null } };
+}
+
+// Sức khỏe nội dung — G2. "Dòng tin trống" tính theo lượt mở app: trong bán kính Nhà không có bài nào còn hiệu lực. Bảng là bản
+// mới nhất của từng khu; xu hướng và chủ đề theo bộ lọc.
 export default function AnalyticsG2Page() {
+  const { query } = useAnalyticsFilters();
+  const { data: topics, error } = useAdminResource<{ topic: string; posts: number }[]>(
+    `/api/admin/analytics/topics?${query}`,
+  );
+  const { data: history } = useAdminResource<SnapshotDay[]>(
+    `/api/admin/analytics/snapshot-history?${query}`,
+  );
   return (
     <>
-      <AnalyticsChrome current="G2" />
-      <div className="border-admin-amber-soft-border bg-admin-amber-soft text-admin-amber-text mb-3.5 mt-3.5 rounded-lg border px-4 py-3 text-sm">
-        Chưa tính được &quot;% thời gian feed trống&quot; — cần theo dõi liên tục, ngoài phạm vi
-        snapshot tính 1 lần/ngày.
+      <AnalyticsChrome current="G2" range area />
+      <div className="mt-3.5 flex flex-col gap-3.5">
+        <SnapshotTable columns={COLUMNS} />
+        <AdminError message={error} />
+        <div className="border-border bg-background rounded-lg border p-5">
+          <h2 className="mb-3 text-sm font-semibold">% lượt mở app thấy dòng tin trống</h2>
+          <TrendLine
+            label="% theo ngày"
+            points={(history ?? []).map((day) => ({
+              day: day.snapshotDate.slice(0, 10),
+              percent: day.metrics.g2?.emptyFeedPercent ?? null,
+            }))}
+          />
+        </div>
+        <div className="border-border bg-background rounded-lg border p-5">
+          <h2 className="mb-3 text-sm font-semibold">Bài theo chủ đề</h2>
+          {topics?.length === 0 ? <p className="text-sm text-stone-600">Chưa có bài nào.</p> : null}
+          {topics?.map((row) => (
+            <div key={row.topic} className="flex justify-between py-1 text-sm">
+              <span className="font-mono text-xs">{row.topic}</span>
+              <span className="font-mono">{row.posts.toLocaleString('vi-VN')}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <SnapshotTable columns={COLUMNS} />
     </>
   );
 }

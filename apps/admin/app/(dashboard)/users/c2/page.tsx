@@ -4,23 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 
 import { UserActivityCard } from '@/components/user-activity-card';
-import {
-  useAdminUserDetail,
-  type AdminUserDetail,
-  type AdminUserTrustHistoryItem,
-} from '@/hooks/useAdminUsers';
-
-const SOURCE_LABEL: Record<string, string> = {
-  vote: 'Được vote hữu ích',
-  violation_confirmed: 'Vi phạm bị xác nhận',
-  appeal_reversal: 'Khiếu nại được chấp nhận',
-};
-
-const SEVERITY_LABEL: Record<string, string> = {
-  light: 'nhẹ',
-  medium: 'trung bình',
-  severe: 'nghiêm trọng',
-};
+import { useAdminUserDetail, type AdminUserDetail } from '@/hooks/useAdminUsers';
 
 // Chi tiết người dùng — C2 (tai-lieu-chuc-nang.md #92). Bắt buộc ghi lý do trước khi mở, ghi vào
 // SensitiveDataAccessLog ở backend — không dựng lại phần "cụm vote"/"cùng thiết bị" trong mock gốc
@@ -131,7 +115,6 @@ function DetailView({ detail }: { detail: AdminUserDetail }) {
   return (
     <div className="flex items-start gap-4">
       <ProfileCard detail={detail} />
-      <TrustHistoryCard history={detail.trustHistory} />
       <UserActivityCard userId={detail.id} />
     </div>
   );
@@ -170,40 +153,6 @@ function ProfileCard({ detail }: { detail: AdminUserDetail }) {
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function TrustHistoryCard({ history }: { history: AdminUserTrustHistoryItem[] }) {
-  return (
-    <div className="border-border bg-background flex-1 overflow-hidden rounded-lg border">
-      <div className="border-b border-stone-100 px-4 py-3 text-sm font-semibold">
-        Lịch sử điểm uy tín
-      </div>
-      {history.length === 0 ? (
-        <div className="px-4 py-6 text-center text-sm text-stone-600">Chưa có lịch sử nào.</div>
-      ) : (
-        history.map((h) => (
-          <div
-            key={h.id}
-            className="flex items-center gap-3.5 border-b border-stone-100 px-4 py-3.5 last:border-0"
-          >
-            <span className="w-24 flex-none font-mono text-xs text-stone-500">
-              {new Date(h.createdAt).toLocaleDateString('vi-VN')}
-            </span>
-            <span className="flex-1 text-sm leading-relaxed">
-              {SOURCE_LABEL[h.sourceType] ?? h.sourceType}
-              {h.severity ? ` (${SEVERITY_LABEL[h.severity] ?? h.severity})` : ''}
-            </span>
-            <span
-              className={`font-mono text-sm font-semibold ${h.delta >= 0 ? 'text-admin-green' : 'text-admin-red'}`}
-            >
-              {h.delta >= 0 ? '+' : ''}
-              {Math.round(h.delta)}
-            </span>
-          </div>
-        ))
-      )}
     </div>
   );
 }

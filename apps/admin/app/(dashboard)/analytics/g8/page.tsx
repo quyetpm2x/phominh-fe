@@ -1,5 +1,8 @@
 'use client';
+
+import { ActualCosts } from '../_components/actual-costs';
 import { AnalyticsChrome } from '../_components/analytics-chrome';
+import { StatCard } from '../_components/stat-card';
 
 import { useCostEstimate, type CostEstimateReport } from '@/hooks/useCostEstimate';
 
@@ -9,7 +12,7 @@ const vnd = (n: number) => `${n.toLocaleString('vi-VN')}đ`;
 // tự chặn 403 cho admin thường (OwnerOnlyGuard), không phải quyền cấp được qua checkbox thông
 // thường. Số liệu là ƯỚC LƯỢNG (số lượng đếm được × đơn giá cấu hình), không phải hoá đơn thật.
 export default function AnalyticsG8Page() {
-  const { report, error } = useCostEstimate();
+  const { report, error, reload } = useCostEstimate();
 
   return (
     <>
@@ -22,6 +25,7 @@ export default function AnalyticsG8Page() {
       ) : null}
 
       <CostBody report={report} error={error} />
+      {report ? <ActualCosts rows={report.actualCosts} onSaved={reload} /> : null}
     </>
   );
 }
@@ -67,15 +71,5 @@ function CostGrid({ report }: { report: CostEstimateReport }) {
         />
       </div>
     </>
-  );
-}
-
-function StatCard({ label, value, hint }: { label: string; value: string; hint: string }) {
-  return (
-    <div className="border-border bg-background rounded-lg border p-6">
-      <div className="text-sm font-semibold">{label}</div>
-      <div className="mt-3 font-mono text-3xl font-semibold text-stone-900">{value}</div>
-      <div className="mt-2 text-xs text-stone-600">{hint}</div>
-    </div>
   );
 }

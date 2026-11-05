@@ -11,19 +11,19 @@ export const metadata: Metadata = {
 const VALUES = [
   {
     title: 'Hàng xóm thật, không phải người lạ toàn cầu',
-    body: 'Bán kính feed nhỏ có chủ đích. Mở rộng ra xa hơn là đánh đổi đúng thứ khiến hàng xóm tin nhau ngay từ đầu — chúng tôi chọn không đánh đổi.',
+    body: 'Bán kính feed cố định 5 km, có chủ đích. Mở rộng ra xa hơn là đánh đổi đúng thứ khiến hàng xóm tin nhau ngay từ đầu — chúng tôi chọn không đánh đổi.',
   },
   {
-    title: 'Ảnh chụp trực tiếp, không dàn dựng',
-    body: 'Không cho tải ảnh cũ từ thư viện. Một tấm ảnh chụp ngay lúc đăng đáng tin hơn nhiều so với ảnh đẹp chỉnh sẵn.',
+    title: 'Ảnh chụp tại chỗ có nhãn riêng',
+    body: 'Bạn có thể chọn ảnh từ thư viện, nhưng chỉ bài có mọi ảnh chụp tại chỗ mới được gắn nhãn Chụp trực tiếp, nên hàng xóm dễ biết tin nào vừa xảy ra.',
   },
   {
-    title: 'Tin cũ tự nhường chỗ, không ai phải dọn',
-    body: 'Bài tự hết hạn sau 24 giờ. Không cần admin xóa, không cần ai nhắc — feed lúc nào cũng là chuyện đang xảy ra.',
+    title: 'Tin ngắn hạn có thể tự ẩn',
+    body: 'Khi đăng, tác giả có thể bật tự ẩn sau 48 giờ cho những tin chỉ đúng trong lúc này. Mặc định bài vẫn hiển thị cho tới khi tác giả xoá.',
   },
   {
     title: 'Uy tín do hàng xóm quyết định, không phải chúng tôi',
-    body: 'Điểm uy tín tăng dần từ vote thật của người xung quanh. Chúng tôi không đứng ra phán xét ai đáng tin — cộng đồng tự làm việc đó.',
+    body: 'Điểm uy tín là số người đang tin tưởng bạn và họ rút lại được bất cứ lúc nào. Chúng tôi không đứng ra phán xét ai đáng tin — cộng đồng tự làm việc đó.',
   },
   {
     title: 'Vị trí chỉ dùng lúc cần, không theo dõi',
@@ -40,8 +40,8 @@ export default function AboutPage() {
       </h1>
       <p className="mt-4.5 max-w-[620px] text-[18px] leading-[1.65] text-gray-800 [text-wrap:pretty]">
         {BRAND} không cố làm một mạng xã hội lớn hơn những gì đã có. Chúng tôi chỉ muốn một nơi nhỏ,
-        đúng bán kính vài phút đi bộ, để mở lên là biết ngay chuyện quanh mình — không phải chuyện ở
-        đâu đó xa.
+        đúng bán kính 5 km, để mở lên là biết ngay chuyện quanh mình — không phải chuyện ở đâu đó
+        xa.
       </p>
 
       {/* ===== Sứ mệnh ===== */}
@@ -67,8 +67,7 @@ export default function AboutPage() {
           <p>
             Chúng tôi không nghĩ giải pháp là làm một mạng xã hội lớn hơn, nhiều tính năng hơn. Càng
             nghĩ kỹ càng thấy vấn đề nằm ở chỗ khác: một nơi có ích cho &ldquo;chuyện quanh
-            nhà&rdquo; phải nhỏ lại, đúng bán kính đi bộ được, và phải tự dọn dẹp chính nó — tin cũ
-            tự ẩn, không ai phải nhớ xóa.
+            nhà&rdquo; phải nhỏ lại, đúng bán kính 5 km, để chuyện ở xa không chen vào.
           </p>
           <p>
             Vì vậy, thay vì mở cùng lúc nhiều nơi, chúng tôi chọn bắt đầu ở đúng một khu — Times

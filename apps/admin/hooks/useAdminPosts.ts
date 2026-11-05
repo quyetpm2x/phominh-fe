@@ -6,7 +6,7 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 export interface AdminPostListItem {
   id: string;
   content: string;
-  postType: 'life' | 'emergency';
+  postType: 'life';
   status: 'active' | 'removed' | 'expired';
   authorId: string;
   authorName: string;
@@ -30,8 +30,7 @@ export interface AdminCommentNode {
   id: string;
   authorNickname: string | null;
   authorRealName: string | null;
-  content: string | null;
-  visibility: 'public' | 'private';
+  content: string;
   isHidden: boolean;
   parentCommentId: string | null;
   createdAt: string;
@@ -88,8 +87,7 @@ export function useAdminPostsList() {
 }
 
 // Chi tiết 1 bài đăng (ảnh + bình luận thật) + thao tác ẩn — mở từ modal khi click 1 dòng trong
-// danh sách. Bình luận riêng tư không có content (xem AdminPostDetail ở backend) — cùng nguyên tắc
-// bảo vệ với B3.
+// danh sách.
 export function useAdminPostDetail(postId: string | null) {
   const router = useRouter();
   const [detail, setDetail] = React.useState<AdminPostDetail | null>(null);

@@ -4,7 +4,7 @@ import { ReportQueueView } from '@/components/report-queue-view';
 import type { ReportItem } from '@/hooks/useReportQueue';
 import { displayName } from '@/lib/post-detail-labels';
 
-// Report bình luận công khai — B2 (tai-lieu-chuc-nang.md #87).
+// Report bình luận — B2 (tai-lieu-chuc-nang.md #87).
 export default function ReportsB2Page() {
   return (
     <ReportQueueView

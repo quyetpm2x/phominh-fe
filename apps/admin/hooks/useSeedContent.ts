@@ -6,7 +6,7 @@ import { AdminApiError, adminFetch } from '@/lib/adminApi';
 export interface SeedPostItem {
   id: string;
   content: string;
-  postType: 'life' | 'emergency';
+  postType: 'life';
   lat: number;
   lng: number;
   createdAt: string;
@@ -15,7 +15,7 @@ export interface SeedPostItem {
 export interface CreateSeedPostInput {
   pilotAreaId: string;
   content: string;
-  postType: 'life' | 'emergency';
+  postType: 'life';
 }
 
 // Đăng bài mồi thủ công (tai-lieu-chuc-nang.md #100) — trước đây permission `seed_content` chỉ

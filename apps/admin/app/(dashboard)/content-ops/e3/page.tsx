@@ -1,7 +1,11 @@
-import { SpecPlaceholder } from '@/components/spec-placeholder';
-import { PLACEHOLDER_SCREENS } from '@/lib/mock/placeholders';
+import { NotEnabledNotice } from '@/components/not-enabled-notice';
 
-// Lớp dữ liệu chính thống — E3 (tài liệu nghiệp vụ). Chưa có UI thiết kế trong Admin.dc.html.
+// Lớp dữ liệu chính thống — E3. Chưa tích hợp nguồn bên ngoài nào.
 export default function ContentOpsE3Page() {
-  return <SpecPlaceholder screen={PLACEHOLDER_SCREENS.E3!} />;
+  return (
+    <NotEnabledNotice title="Chưa kết nối nguồn dữ liệu chính thống">
+      App hiện chỉ có nội dung cộng đồng. Trang này sẽ dùng được sau khi tích hợp một nguồn đã xác
+      thực, ví dụ HSDC Maps.
+    </NotEnabledNotice>
+  );
 }

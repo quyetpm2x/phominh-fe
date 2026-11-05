@@ -2,6 +2,8 @@
 
 import { cn } from '@pho-minh/ui';
 
+import { BankReview } from './bank-review';
+
 import { Pill } from '@/components/pill';
 import { useAdminPayouts, type AdminPayoutItem, type PayoutStatus } from '@/hooks/useAdminPayouts';
 import type { Tone } from '@/lib/types';
@@ -42,6 +44,7 @@ export default function PaymentsPage() {
 
   return (
     <div>
+      <BankReview />
       <StatusTabs value={statusFilter} onChange={setStatusFilter} />
 
       {error ? (

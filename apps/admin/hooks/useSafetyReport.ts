@@ -11,11 +11,13 @@ export interface SafetyReport {
   avgReviewTimeHours: number | null;
   commentAttackIncidentCount: number;
   voteCollusionFlagCount: number;
-  avgEmergencyVerificationHours: number | null;
+  messageReports: number;
+  blockedUsers: number;
+  pendingMessageRequests: number;
 }
 
 // Báo cáo An toàn G7 (tai-lieu-chuc-nang.md #109).
-export function useSafetyReport() {
+export function useSafetyReport(days: number) {
   const router = useRouter();
   const [report, setReport] = React.useState<SafetyReport | null>(null);
   const [error, setError] = React.useState<string | null>(null);
@@ -23,7 +25,9 @@ export function useSafetyReport() {
   React.useEffect(() => {
     void (async () => {
       try {
-        const data = await adminFetch<SafetyReport>('/api/admin/analytics/safety-report');
+        const data = await adminFetch<SafetyReport>(
+          `/api/admin/analytics/safety-report?days=${days}`,
+        );
         setReport(data);
       } catch (err) {
         if (err instanceof AdminApiError && err.message.includes('hết hạn')) {
@@ -33,7 +37,7 @@ export function useSafetyReport() {
         setError(err instanceof AdminApiError ? err.message : 'Không kết nối được máy chủ');
       }
     })();
-  }, [router]);
+  }, [days, router]);
 
   return { report, error };
 }

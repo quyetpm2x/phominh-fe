@@ -2,25 +2,42 @@
 
 import * as React from 'react';
 
+import { AnalyticsFilters } from '../analytics/_components/analytics-chrome';
+
 import { HourHistogram } from '@/components/hour-histogram';
+import { useAnalyticsFilters } from '@/hooks/useAnalyticsFilters';
 import { useUserActivityOverview } from '@/hooks/useUserActivityOverview';
 
-function last7DaysRange(): { dateFrom: string; dateTo: string } {
+function rangeOf(days: number): { dateFrom: string; dateTo: string } {
   const to = new Date();
   const from = new Date(to);
-  from.setUTCDate(from.getUTCDate() - 7);
+  from.setUTCDate(from.getUTCDate() - days);
   return { dateFrom: from.toISOString(), dateTo: to.toISOString() };
 }
 
-// Thống kê hoạt động người dùng — G9 (bổ sung ngoài 117 mục gốc, thảo luận 2026-08-17). KHÔNG dùng
-// chung AnalyticsChrome/mock tab strip G1-G8 vì đây là dữ liệu thật, không thuộc bộ mock đó.
+const DEFAULT_DAYS = 7;
+
+// Thống kê hoạt động người dùng — G9 (bổ sung ngoài 117 mục gốc, thảo luận 2026-08-17). Lọc theo khu = người dùng có Nhà trong
+// bán kính khu. Bọc Suspense vì bộ lọc đọc từ URL.
 export default function UserActivityPage() {
-  const [{ dateFrom, dateTo }] = React.useState(last7DaysRange);
-  const { overview, error } = useUserActivityOverview(dateFrom, dateTo);
+  return (
+    <React.Suspense fallback={<div className="text-sm text-stone-600">Đang tải…</div>}>
+      <UserActivityContent />
+    </React.Suspense>
+  );
+}
+
+function UserActivityContent() {
+  const { days, areaId } = useAnalyticsFilters(DEFAULT_DAYS);
+  // Chốt mốc theo khoảng đã chọn: tính lại mỗi lần render sẽ đổi URL API liên tục và gọi lại không dừng.
+  const { dateFrom, dateTo } = React.useMemo(() => rangeOf(days), [days]);
+  const { overview, error } = useUserActivityOverview(dateFrom, dateTo, areaId);
 
   return (
     <div>
-      <div className="mb-4 text-sm text-stone-600">7 ngày gần nhất</div>
+      <div className="mb-4">
+        <AnalyticsFilters range area defaultDays={DEFAULT_DAYS} />
+      </div>
 
       {error ? (
         <div className="border-admin-red-soft-border bg-admin-red-soft text-admin-red mb-4 rounded-lg border px-4 py-3 text-sm">

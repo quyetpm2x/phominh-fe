@@ -6,7 +6,7 @@ import { useAuditLog, type AuditLogItem } from '@/hooks/useAuditLog';
 
 const DATA_TYPE_TABS: { value: string | undefined; label: string }[] = [
   { value: undefined, label: 'Tất cả' },
-  { value: 'private_comment', label: 'Bình luận riêng tư' },
+  { value: 'private_message', label: 'Tin nhắn' },
   { value: 'user_detail', label: 'Chi tiết người dùng' },
 ];
 

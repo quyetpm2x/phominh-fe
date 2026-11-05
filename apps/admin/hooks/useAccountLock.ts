@@ -1,9 +1,10 @@
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
+import type { AccountStatus } from '@/lib/accountLockActions';
 import { AdminApiError, adminFetch } from '@/lib/adminApi';
 
-export type AccountStatus = 'active' | 'banned' | 'restricted';
+export type { AccountStatus };
 
 export interface AdminUserLookupResult {
   id: string;
@@ -13,7 +14,7 @@ export interface AdminUserLookupResult {
   accountStatus: AccountStatus;
   statusReason: string | null;
   restrictedUntil: string | null;
-  trustScoreE1: number;
+  trusters: number;
   createdAt: string;
 }
 

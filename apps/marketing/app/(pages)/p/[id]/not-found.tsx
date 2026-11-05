@@ -11,8 +11,7 @@ export default function SharedPostNotFound() {
         Bài viết không còn hiển thị
       </h1>
       <p className="mt-4 text-[16px] leading-[1.65] text-gray-800 [text-wrap:pretty]">
-        Bài có thể đã hết hạn, đã bị tác giả xoá hoặc không tồn tại. Tin trên {BRAND} tự ẩn sau một
-        thời gian để khu phố luôn là chuyện đang xảy ra.
+        Bài có thể đã tự ẩn theo lựa chọn của tác giả, đã bị xoá hoặc không tồn tại.
       </p>
       <Link
         href="/"

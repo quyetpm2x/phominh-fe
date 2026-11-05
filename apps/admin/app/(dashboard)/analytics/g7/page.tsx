@@ -1,17 +1,19 @@
 'use client';
 import { AnalyticsChrome } from '../_components/analytics-chrome';
+import { StatCard } from '../_components/stat-card';
 
+import { useAnalyticsFilters } from '@/hooks/useAnalyticsFilters';
 import { useSafetyReport, type SafetyReport } from '@/hooks/useSafetyReport';
 
-// An toàn & kiểm duyệt — G7 (tai-lieu-chuc-nang.md #109, bussiness §9.7). "Số lần phát hiện cụm tấn
-// công"/"số cụm thông đồng vote" LUÔN hiện 0 — không phải lỗi, cả 2 thuật toán phát hiện đang HOÃN
-// CÓ CHỦ Ý (mục 89/93), xem SafetyReportService.getSafetyReport() phía backend.
+// An toàn & kiểm duyệt — G7 (tai-lieu-chuc-nang.md #109, bussiness §9.7). 2 thuật toán phát hiện cụm tấn công / thông đồng đang
+// hoãn có chủ ý (mục 89/93) nên hiện "Chưa bật", không hiện số 0 dễ bị hiểu là không có vấn đề.
 export default function AnalyticsG7Page() {
-  const { report, error } = useSafetyReport();
+  const { days } = useAnalyticsFilters();
+  const { report, error } = useSafetyReport(days);
 
   return (
     <>
-      <AnalyticsChrome current="G7" />
+      <AnalyticsChrome current="G7" range />
 
       {error ? (
         <div className="border-admin-red-soft-border bg-admin-red-soft text-admin-red mt-3.5 rounded-lg border px-4 py-3 text-sm">
@@ -42,34 +44,30 @@ function ReportGrid({ report }: { report: SafetyReport }) {
         hint="Từ lúc gửi report tới lúc admin xử lý lần đầu"
       />
       <StatCard
-        label="Thời gian trung bình tin khẩn cấp đạt đủ xác nhận"
-        value={
-          report.avgEmergencyVerificationHours === null
-            ? '—'
-            : `${report.avgEmergencyVerificationHours} giờ`
-        }
-        hint="Từ lúc đăng tới lúc đủ 3 xác nhận độc lập"
+        label="Report tin nhắn"
+        value={report.messageReports.toLocaleString('vi-VN')}
+        hint="Tin nhắn bị người nhận báo cáo"
       />
       <StatCard
-        label="Cụm tấn công bình luận bị phát hiện"
-        value={report.commentAttackIncidentCount.toLocaleString('vi-VN')}
-        hint="Tính năng phát hiện đang hoãn có chủ ý — luôn 0"
+        label="Lượt chặn người dùng"
+        value={report.blockedUsers.toLocaleString('vi-VN')}
+        hint="Người dùng chặn nhau trong kỳ"
       />
       <StatCard
-        label="Cụm thông đồng vote bị phát hiện"
-        value={report.voteCollusionFlagCount.toLocaleString('vi-VN')}
-        hint="Tính năng phát hiện đang hoãn có chủ ý — luôn 0"
+        label="Lời mời nhắn tin chưa được chấp nhận"
+        value={report.pendingMessageRequests.toLocaleString('vi-VN')}
+        hint="Tạo trong kỳ, người nhận chưa chấp nhận hay trả lời"
       />
-    </div>
-  );
-}
-
-function StatCard({ label, value, hint }: { label: string; value: string; hint: string }) {
-  return (
-    <div className="border-border bg-background rounded-lg border p-6">
-      <div className="text-sm font-semibold">{label}</div>
-      <div className="mt-3 font-mono text-3xl font-semibold text-stone-900">{value}</div>
-      <div className="mt-2 text-xs text-stone-600">{hint}</div>
+      <StatCard
+        label="Cụm tấn công bình luận"
+        value="Chưa bật"
+        hint="Tính năng phát hiện đang hoãn có chủ ý"
+      />
+      <StatCard
+        label="Cụm thông đồng vote"
+        value="Chưa bật"
+        hint="Tính năng phát hiện đang hoãn có chủ ý"
+      />
     </div>
   );
 }

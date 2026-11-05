@@ -9,7 +9,7 @@ import { STATUS_LABEL } from '@/lib/post-detail-labels';
 type HideTarget = { kind: 'post' } | { kind: 'comment'; commentId: string };
 
 // Modal chi tiết 1 bài đăng — mở từ click 1 dòng trong bảng quản lý bài đăng (mục 120). Ảnh/bình
-// luận công khai là dữ liệu THẬT; bình luận riêng tư không hiện content (cùng nguyên tắc B3). Ẩn
+// luận là dữ liệu THẬT. Ẩn
 // bài/bình luận đều bắt buộc ghi lý do trước khi gọi API (HidePostDto/HideCommentDto phía backend
 // từ chối nếu thiếu — dialog ở đây chỉ là UX, backend mới là chốt chặn thật).
 export function PostDetailModal({ postId, onClose }: { postId: string; onClose: () => void }) {

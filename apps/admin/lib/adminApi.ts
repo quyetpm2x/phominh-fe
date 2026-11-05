@@ -40,11 +40,15 @@ export interface AdminInfo {
 }
 
 // Xác thực riêng biệt, không dùng chung OTP user thường (bussiness §9.1 A1) — POST /api/admin/auth/login.
-export async function adminLogin(email: string, password: string): Promise<AdminInfo> {
+export async function adminLogin(
+  email: string,
+  password: string,
+  otp?: string,
+): Promise<AdminInfo> {
   const res = await fetch(`${BACKEND_API_URL}/api/admin/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, ...(otp ? { otp } : {}) }),
   });
   const body = (await res.json().catch(() => null)) as Envelope<{
     accessToken: string;
@@ -89,7 +93,8 @@ export async function adminFetch<T>(path: string, options: RequestInit = {}): Pr
       Array.isArray(message) ? message.join(', ') : (message ?? 'Có lỗi xảy ra, thử lại sau.'),
     );
   }
-  return (body as Envelope<T>).data;
+  // 204 (duyệt, xoá...) không có nội dung.
+  return (body as Envelope<T> | null)?.data as T;
 }
 
 export function getMe(): Promise<AdminInfo> {

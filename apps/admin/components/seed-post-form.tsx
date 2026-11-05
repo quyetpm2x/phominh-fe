@@ -20,7 +20,6 @@ export function SeedPostForm({
 }) {
   const [pilotAreaId, setPilotAreaId] = React.useState('');
   const [content, setContent] = React.useState('');
-  const [postType, setPostType] = React.useState<CreateSeedPostInput['postType']>('life');
 
   const canSubmit = pilotAreaId !== '' && content.trim().length > 0 && !creating;
 
@@ -29,22 +28,12 @@ export function SeedPostForm({
       onSubmit={(e) => {
         e.preventDefault();
         if (!canSubmit) return;
-        onSubmit({ pilotAreaId, content: content.trim(), postType });
+        onSubmit({ pilotAreaId, content: content.trim(), postType: 'life' });
         setContent('');
       }}
       className="border-border bg-background rounded-lg border p-4"
     >
-      <div className="grid grid-cols-2 gap-2.5">
-        <AreaSelect areas={areas} value={pilotAreaId} onChange={setPilotAreaId} />
-        <select
-          value={postType}
-          onChange={(e) => setPostType(e.target.value as CreateSeedPostInput['postType'])}
-          className={SELECT_CLASS}
-        >
-          <option value="life">Đời sống</option>
-          <option value="emergency">Khẩn cấp</option>
-        </select>
-      </div>
+      <AreaSelect areas={areas} value={pilotAreaId} onChange={setPilotAreaId} />
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}

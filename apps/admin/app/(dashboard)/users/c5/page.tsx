@@ -8,6 +8,7 @@ import {
   type AccountStatus,
   type AdminUserLookupResult,
 } from '@/hooks/useAccountLock';
+import { lockActions, restrictedUntilFor } from '@/lib/accountLockActions';
 import type { Tone } from '@/lib/types';
 
 const STATUS_LABEL: Record<AccountStatus, string> = {
@@ -21,8 +22,6 @@ const STATUS_TONE: Record<AccountStatus, Tone> = {
   restricted: 'warn',
   banned: 'bad',
 };
-
-const DAY_MS = 24 * 60 * 60 * 1000;
 
 // Khóa/mở khóa tài khoản — C5 (tai-lieu-chuc-nang.md #95). Trước đây chỉ là SpecPlaceholder dù
 // PATCH admin/users/:id/status đã chạy thật — thiếu đúng 1 khâu: cách tìm ra userId cần khoá.
@@ -95,7 +94,7 @@ function UserPanel({
         <Pill tone={STATUS_TONE[result.accountStatus]}>{STATUS_LABEL[result.accountStatus]}</Pill>
       </div>
       <div className="mt-1 text-xs text-stone-600">
-        Biệt danh: {result.nickname ?? '—'} · Điểm E1: {result.trustScoreE1} · Tham gia{' '}
+        Biệt danh: {result.nickname ?? '—'} · Người tin tưởng: {result.trusters} · Tham gia{' '}
         {new Date(result.createdAt).toLocaleDateString('vi-VN')}
       </div>
       {result.statusReason ? (
@@ -131,50 +130,23 @@ function ActionButtons({
   applying: boolean;
   onApply: (status: AccountStatus, restrictedUntil?: string) => void;
 }) {
-  const needsReason = !reason.trim();
-  const btnClass =
-    'rounded-md border border-stone-200 bg-white px-2.5 py-1.5 text-xs font-medium disabled:opacity-50';
-
-  if (result.accountStatus !== 'active') {
-    return (
-      <div className="mt-3">
-        <button
-          type="button"
-          disabled={applying}
-          onClick={() => onApply('active')}
-          className={btnClass}
-        >
-          Mở lại
-        </button>
-      </div>
-    );
-  }
   return (
     <div className="mt-3 flex flex-wrap gap-2">
-      <button
-        type="button"
-        disabled={applying || needsReason}
-        onClick={() => onApply('restricted', new Date(Date.now() + 7 * DAY_MS).toISOString())}
-        className={btnClass}
-      >
-        Hạn chế 7 ngày
-      </button>
-      <button
-        type="button"
-        disabled={applying || needsReason}
-        onClick={() => onApply('restricted', new Date(Date.now() + 30 * DAY_MS).toISOString())}
-        className={btnClass}
-      >
-        Hạn chế 30 ngày
-      </button>
-      <button
-        type="button"
-        disabled={applying || needsReason}
-        onClick={() => onApply('banned')}
-        className="border-admin-red-soft-border bg-admin-red-soft text-admin-red rounded-md border px-2.5 py-1.5 text-xs font-medium disabled:opacity-50"
-      >
-        Khoá vĩnh viễn
-      </button>
+      {lockActions(result.accountStatus).map((action) => (
+        <button
+          key={action.label}
+          type="button"
+          disabled={applying || (action.needsReason && !reason.trim())}
+          onClick={() => onApply(action.status, restrictedUntilFor(action, Date.now()))}
+          className={`rounded-md border px-2.5 py-1.5 text-xs font-medium disabled:opacity-50 ${
+            action.danger
+              ? 'border-admin-red-soft-border bg-admin-red-soft text-admin-red'
+              : 'border-stone-200 bg-white'
+          }`}
+        >
+          {action.label}
+        </button>
+      ))}
     </div>
   );
 }

@@ -45,12 +45,12 @@ export default function HomePage() {
                 desc="Không đơn xin vào, không kiểm duyệt thành viên. Ở gần là xem được."
               />
               <NewWayItem
-                title="Bài cũ tự mờ dần rồi ẩn"
-                desc="Viền bài đổi màu theo thời gian, hết 24 giờ là tự ẩn. Không ai phải dọn."
+                title="Tin ngắn hạn có thể tự ẩn"
+                desc="Khi đăng, bạn có thể bật tự ẩn sau 48 giờ. Mặc định bài vẫn hiển thị."
               />
               <NewWayItem
                 title="Chỉ người quanh đây"
-                desc="Mỗi bài gắn vị trí thật lúc đăng, hiện theo bán kính bạn chọn."
+                desc="Mỗi bài gắn vị trí thật lúc đăng, hiện trong bán kính cố định 5 km."
               />
             </div>
           </div>
@@ -102,7 +102,8 @@ export default function HomePage() {
             <StepCard step="03">
               <div className="mt-3 text-xl font-bold">Bình luận, vote, hoặc tự đăng</div>
               <p className="mt-2 text-[14.5px] leading-[1.6] text-gray-800 [text-wrap:pretty]">
-                Bài hữu ích được hàng xóm vote uy tín. Có gì muốn chia sẻ thì chụp một tấm rồi đăng.
+                Ai chia sẻ tin hữu ích sẽ được hàng xóm bấm tin tưởng. Có gì muốn chia sẻ thì chụp
+                một tấm rồi đăng.
               </p>
               <div className="mt-4.5 flex items-center gap-2">
                 <span className="bg-accent-soft-100 text-accent-text rounded-full px-3.5 py-2.5 text-[13px] font-semibold">
@@ -123,14 +124,14 @@ export default function HomePage() {
           Để hàng xóm tin nhau, app phải làm vài việc cẩn thận
         </h2>
         <div className="mt-8.5 gap-4.5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <TrustCard dot="bg-accent-soft-100" title="Ảnh chụp trực tiếp trong app">
-            Không tải ảnh cũ từ thư viện, nên bài “còn hàng” đúng là của hôm nay.
+          <TrustCard dot="bg-accent-soft-100" title="Nhãn cho ảnh chụp trực tiếp">
+            Ảnh chụp tại chỗ được gắn nhãn “Chụp trực tiếp”, nên dễ biết bài là của hôm nay.
           </TrustCard>
-          <TrustCard dot="bg-accent-soft-100" title="Điểm uy tín tích lũy dần">
-            Người hay đăng tin hữu ích được hàng xóm vote, uy tín lên theo thời gian.
+          <TrustCard dot="bg-accent-soft-100" title="Uy tín do hàng xóm trao">
+            Điểm uy tín là số hàng xóm đang tin tưởng bạn, không phải con số tự cộng.
           </TrustCard>
-          <TrustCard dot="bg-accent-soft-200" title="Tin khẩn cấp được xác minh">
-            Cần nhiều nguồn ở gần cùng xác nhận trước khi tin lan ra cả khu.
+          <TrustCard dot="bg-accent-soft-200" title="Báo cáo và chặn dễ dàng">
+            Thấy nội dung sai thì báo cáo để đội ngũ xử lý, hoặc chặn người đó ngay.
           </TrustCard>
           <TrustCard dot="bg-gray-250" title="Vị trí chỉ lấy khi mở app">
             Không theo dõi chạy nền. Bạn xóa dữ liệu cá nhân bất cứ lúc nào.{' '}

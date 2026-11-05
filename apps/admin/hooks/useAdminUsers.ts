@@ -9,7 +9,6 @@ export interface AdminUserListItem {
   nickname: string | null;
   phoneNumber: string;
   accountStatus: 'active' | 'banned' | 'restricted';
-  trustScoreE1: number;
   trusters: number; // số người đang tin tưởng — nguồn của huy hiệu 10 cấp
   trustBadgeLabel: string;
   postCount: number;
@@ -23,14 +22,6 @@ interface AdminUserListResult {
   pageSize: number;
 }
 
-export interface AdminUserTrustHistoryItem {
-  id: string;
-  delta: number;
-  sourceType: string;
-  severity: string | null;
-  createdAt: string;
-}
-
 export interface AdminUserDetail extends AdminUserListItem {
   realName: string | null;
   statusReason: string | null;
@@ -38,7 +29,6 @@ export interface AdminUserDetail extends AdminUserListItem {
   commentCount: number;
   reportsReceivedCount: number;
   reportsSentCount: number;
-  trustHistory: AdminUserTrustHistoryItem[];
 }
 
 // Danh sách người dùng, tìm theo SĐT/tên thật/biệt danh + phân trang offset (tai-lieu-chuc-nang.md #91) —

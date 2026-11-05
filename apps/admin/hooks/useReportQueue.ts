@@ -4,7 +4,6 @@ import * as React from 'react';
 import { AdminApiError, adminFetch } from '@/lib/adminApi';
 
 export type ReportStatus = 'pending' | 'reviewed' | 'actioned' | 'dismissed';
-export type Severity = 'light' | 'medium' | 'severe';
 
 export interface ReportPost {
   id: string;
@@ -17,10 +16,17 @@ export interface ReportPost {
 
 export interface ReportComment {
   id: string;
-  content?: string; // absent ở hàng đợi riêng tư cho tới khi reveal (mục 88)
+  content: string;
   isHidden: boolean;
   createdAt: string;
   author: { realName: string | null; nickname: string | null };
+}
+
+export interface ReportMessage {
+  id: string;
+  deletedAt: string | null;
+  createdAt: string;
+  sender: { id: string; realName: string | null; nickname: string | null };
 }
 
 export interface ReportItem {
@@ -31,16 +37,17 @@ export interface ReportItem {
   createdAt: string;
   post?: ReportPost;
   comment?: ReportComment;
+  message?: ReportMessage;
 }
 
 export interface UpdateStatusInput {
   status: ReportStatus;
-  severity?: Severity;
   removePost?: boolean;
   hideComment?: boolean;
+  removeMessage?: boolean;
 }
 
-// Dùng chung cho 3 hàng đợi report (B1/B2/B3, tai-lieu-chuc-nang.md #86-88) — chỉ khác endpoint
+// Dùng chung cho các hàng đợi report (B1/B2/B6) — chỉ khác endpoint
 // nguồn, cùng 1 endpoint cập nhật trạng thái (PATCH admin/reports/:id/status).
 export function useReportQueue(endpoint: string) {
   const router = useRouter();

@@ -13,6 +13,8 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [otp, setOtp] = React.useState('');
+  const [needOtp, setNeedOtp] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
   // Đã đăng nhập từ trước (còn cookie hợp lệ) mà vẫn vào /login → đẩy thẳng về dashboard, không
@@ -35,9 +37,11 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
     try {
-      await adminLogin(email, password);
+      await adminLogin(email, password, otp.trim() || undefined);
       router.push('/');
     } catch (err) {
+      // Đúng mật khẩu mà tài khoản đã bật 2 lớp: hiện ô nhập mã.
+      if (err instanceof AdminApiError && /mã xác thực/i.test(err.message)) setNeedOtp(true);
       setError(err instanceof AdminApiError ? err.message : 'Không kết nối được máy chủ');
     } finally {
       setLoading(false);
@@ -53,6 +57,8 @@ export default function LoginPage() {
         <LoginForm
           email={email}
           password={password}
+          otp={needOtp ? otp : null}
+          onOtpChange={setOtp}
           error={error}
           loading={loading}
           onEmailChange={setEmail}
@@ -95,6 +101,8 @@ function LoginBrandPanel() {
 function LoginForm({
   email,
   password,
+  otp,
+  onOtpChange,
   error,
   loading,
   onEmailChange,
@@ -103,6 +111,9 @@ function LoginForm({
 }: {
   email: string;
   password: string;
+  /** null = tài khoản chưa cần mã 2 lớp. */
+  otp: string | null;
+  onOtpChange: (v: string) => void;
   error: string | null;
   loading: boolean;
   onEmailChange: (v: string) => void;
@@ -129,6 +140,7 @@ function LoginForm({
           />
         </label>
         <PasswordField value={password} onChange={onPasswordChange} />
+        {otp !== null ? <OtpField value={otp} onChange={onOtpChange} /> : null}
 
         {error ? <div className="text-destructive text-sm">{error}</div> : null}
 
@@ -167,6 +179,22 @@ function PasswordField({ value, onChange }: { value: string; onChange: (v: strin
           {show ? 'Ẩn' : 'Hiện'}
         </button>
       </div>
+    </label>
+  );
+}
+
+function OtpField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <label className="flex flex-col gap-1.5">
+      <span className="text-xs font-semibold text-stone-700">Mã xác thực 2 lớp (6 số)</span>
+      <input
+        inputMode="numeric"
+        autoComplete="one-time-code"
+        autoFocus
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="border-border h-11 rounded-lg border bg-white px-3.5 text-sm"
+      />
     </label>
   );
 }

@@ -35,12 +35,12 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <button
-          type="button"
-          className="from-primary whitespace-nowrap rounded-[11px] bg-gradient-to-br to-[#1A4794] px-[18px] py-[11px] text-sm font-bold text-white transition-all hover:-translate-y-px hover:shadow-[0_8px_18px_rgba(255,201,60,0.3)]"
+        <a
+          href="#tai-app"
+          className="from-primary whitespace-nowrap rounded-[11px] bg-gradient-to-br to-[#1A4794] px-[18px] py-[11px] text-sm font-bold text-white no-underline transition-all hover:-translate-y-px hover:shadow-[0_8px_18px_rgba(255,201,60,0.3)]"
         >
           Tải app
-        </button>
+        </a>
       </div>
     </header>
   );

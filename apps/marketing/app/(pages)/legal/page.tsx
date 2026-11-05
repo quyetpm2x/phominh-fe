@@ -14,7 +14,8 @@ const TOC = [
   { href: '#dk2', label: '2. Tài khoản và số điện thoại' },
   { href: '#dk3', label: '3. Nội dung anh chị đăng' },
   { href: '#dk4', label: '4. Nội dung bị cấm' },
-  { href: '#dk5', label: '5. Tạm ngưng tài khoản' },
+  { href: '#dk5', label: '5. Xử lý vi phạm' },
+  { href: '#dk6', label: '6. Ví thưởng và rút tiền' },
   { href: '#qrt', label: 'Chính sách quyền riêng tư', top: true },
   { href: '#qrt1', label: '1. Dữ liệu chúng tôi thu thập' },
   { href: '#qrt2', label: '2. Dữ liệu vị trí GPS' },
@@ -53,7 +54,7 @@ export default function LegalPage() {
           Điều khoản sử dụng
         </h1>
         <div className="mt-2.5 font-mono text-[13px] text-gray-800">
-          Cập nhật 01/08/2026 · Áp dụng cho toàn bộ người dùng {BRAND}
+          Phiên bản 1.0.0 · Cập nhật 05/11/2026 · Áp dụng cho toàn bộ người dùng {BRAND}
         </div>
 
         <LegalHeading id="dk1" className="mt-10">
@@ -67,15 +68,18 @@ export default function LegalPage() {
 
         <LegalHeading id="dk2">2. Tài khoản và số điện thoại</LegalHeading>
         <LegalP>
-          Mỗi số điện thoại tạo được một tài khoản. Chúng tôi không yêu cầu email hay tên thật. Số
-          điện thoại dùng để xác thực và không hiển thị công khai.
+          Mỗi số điện thoại tạo được một tài khoản. Khi tạo hồ sơ, anh chị cung cấp họ tên và ngày
+          sinh; email và giới tính là tuỳ chọn. Số điện thoại dùng để xác thực và không hiển thị
+          công khai.
         </LegalP>
 
         <LegalHeading id="dk3">3. Nội dung anh chị đăng</LegalHeading>
         <LegalP>
           Bài đăng vẫn thuộc về anh chị. Khi đăng, anh chị cho phép {BRAND} hiển thị bài đó cho
-          người dùng trong bán kính liên quan trong thời gian bài còn hiệu lực. Ảnh phải được chụp
-          trực tiếp trong app. Mỗi bài tự hết hiệu lực sau 24 giờ và không còn hiển thị trong feed.
+          người dùng trong bán kính cố định 5 km và cho người mở liên kết chia sẻ bài. Anh chị có
+          thể chụp ảnh tại chỗ hoặc chọn từ thư viện; chỉ bài có mọi ảnh chụp tại chỗ mới được gắn
+          nhãn Chụp trực tiếp. Mặc định bài hiển thị cho tới khi anh chị xoá; khi đăng, anh chị có
+          thể bật tự ẩn sau 48 giờ.
         </LegalP>
 
         <LegalHeading id="dk4">4. Nội dung bị cấm</LegalHeading>
@@ -85,11 +89,17 @@ export default function LegalPage() {
           và nội dung người lớn. Không đăng ảnh người khác khi họ không đồng ý, đặc biệt là trẻ em.
         </LegalP>
 
-        <LegalHeading id="dk5">5. Tạm ngưng tài khoản</LegalHeading>
+        <LegalHeading id="dk5">5. Xử lý vi phạm</LegalHeading>
         <LegalP>
-          Tài khoản bị nhiều hàng xóm báo cáo về cùng một hành vi sẽ được xem xét và có thể bị tạm
-          ngưng. Anh chị được thông báo lý do và có quyền phản hồi. Anh chị cũng có thể tự xóa tài
-          khoản bất cứ lúc nào trong phần Cài đặt.
+          Điểm uy tín là số người đang tin tưởng anh chị nên không bị trừ khi vi phạm. Tùy mức độ,
+          nội dung vi phạm có thể bị gỡ, tài khoản có thể bị hạn chế hoặc khóa. Anh chị cũng có thể
+          tự xóa tài khoản bất cứ lúc nào trong phần Cài đặt.
+        </LegalP>
+
+        <LegalHeading id="dk6">6. Ví thưởng và rút tiền</LegalHeading>
+        <LegalP>
+          Tiền thưởng từ hoạt động chia sẻ thông tin hữu ích có thể rút về tài khoản ngân hàng chính
+          chủ. {BRAND} có quyền kiểm duyệt các yêu cầu rút tiền có dấu hiệu gian lận lượt tương tác.
         </LegalP>
 
         <div className="border-border mt-14 border-t pt-11">
@@ -100,15 +110,17 @@ export default function LegalPage() {
             Chính sách quyền riêng tư
           </h1>
           <div className="mt-2.5 font-mono text-[13px] text-gray-800">
-            Cập nhật 01/08/2026 · Theo Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân
+            Cập nhật 05/11/2026 · Theo Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân
           </div>
         </div>
 
         <LegalHeading id="qrt1">1. Dữ liệu chúng tôi thu thập</LegalHeading>
         <LegalP>
-          Số điện thoại (để xác thực tài khoản), tên hiển thị anh chị tự đặt, ảnh và nội dung bài
-          đăng, vị trí tại thời điểm đăng bài, và dữ liệu sử dụng cơ bản như lần mở app gần nhất.
-          Chúng tôi không thu thập danh bạ, không thu thập lịch sử trình duyệt, không đọc tin nhắn.
+          Số điện thoại (để xác thực tài khoản), họ tên, ngày sinh, tên hiển thị, ảnh đại diện,
+          email và giới tính nếu anh chị cung cấp, ảnh và nội dung bài đăng, tin nhắn gửi trong app,
+          vị trí Nhà và Chỗ làm anh chị tự đặt, vị trí tại thời điểm đăng bài, tài khoản ngân hàng
+          nhận thưởng (số tài khoản được mã hoá), và dữ liệu sử dụng cơ bản như lần mở app gần nhất.
+          Chúng tôi không thu thập danh bạ, lịch sử trình duyệt hay tin nhắn SMS trong máy anh chị.
         </LegalP>
 
         <div
@@ -127,14 +139,16 @@ export default function LegalPage() {
             </GpsPoint>
             <GpsPoint>
               Chúng tôi không lưu lịch sử di chuyển. Vị trí dùng để tính bán kính feed rồi bỏ, chỉ
-              giữ lại vị trí gắn với bài anh chị đã đăng.
+              giữ lại vị trí gắn với bài anh chị đã đăng và vị trí Nhà, Chỗ làm anh chị tự đặt.
             </GpsPoint>
             <GpsPoint>
-              Hàng xóm chỉ thấy khoảng cách tương đối tới bài đăng (ví dụ “~5 phút đi bộ”), không
-              thấy toạ độ hay địa chỉ nhà anh chị.
+              Hàng xóm thấy khoảng cách đã làm tròn và ghim bản đồ đã làm tròn, không thấy toạ độ
+              GPS chính xác. Nếu anh chị tự nhập địa chỉ cho bài, người khác sẽ thấy địa chỉ và vị
+              trí đó.
             </GpsPoint>
             <GpsPoint>
-              Từ chối quyền vị trí vẫn dùng được app: anh chị tự chọn khu vực bằng tay.
+              Từ chối quyền vị trí vẫn dùng được app: anh chị tự đặt vị trí Nhà hoặc Chỗ làm bằng
+              tay.
             </GpsPoint>
           </div>
         </div>
@@ -142,9 +156,9 @@ export default function LegalPage() {
         <LegalHeading id="qrt3">3. Quyền xóa dữ liệu cá nhân</LegalHeading>
         <LegalP>
           Anh chị có quyền yêu cầu xem, sửa, hoặc xóa toàn bộ dữ liệu cá nhân của mình. Trong app:
-          Cài đặt → Dữ liệu của tôi → Xóa tài khoản và dữ liệu. Yêu cầu được xử lý trong vòng 72
-          giờ. Sau khi xóa, số điện thoại, tên hiển thị, ảnh và bài đăng của anh chị được xóa khỏi
-          hệ thống; bản sao lưu kỹ thuật được xóa trong vòng 30 ngày.
+          Cài đặt → Đăng xuất & Xoá tài khoản, rồi xác nhận bằng mã gửi tới số điện thoại. Tài khoản
+          được xoá vĩnh viễn sau 30 ngày; trong thời gian này anh chị có thể đăng nhập lại để huỷ
+          yêu cầu.
         </LegalP>
         <LegalP>
           Anh chị cũng có thể yêu cầu qua email{' '}
@@ -160,15 +174,15 @@ export default function LegalPage() {
         <LegalHeading id="qrt4">4. Chia sẻ với bên thứ ba</LegalHeading>
         <LegalP>
           Chúng tôi không bán dữ liệu cá nhân. Dữ liệu chỉ được chia sẻ với nhà cung cấp hạ tầng lưu
-          trữ và dịch vụ gửi tin nhắn xác thực, trong phạm vi cần thiết để app hoạt động, hoặc khi
-          có yêu cầu hợp pháp từ cơ quan nhà nước có thẩm quyền.
+          trữ, bản đồ, gửi thông báo và gửi tin nhắn xác thực, trong phạm vi cần thiết để app hoạt
+          động, hoặc khi có yêu cầu hợp pháp từ cơ quan nhà nước có thẩm quyền.
         </LegalP>
 
         <LegalHeading id="qrt5">5. Thời gian lưu trữ</LegalHeading>
         <LegalP>
-          Bài đăng hết hiệu lực sau 24 giờ và bị xóa khỏi hệ thống sau 30 ngày. Dữ liệu tài khoản
-          được lưu trong thời gian tài khoản còn hoạt động. Tài khoản không đăng nhập 24 tháng liên
-          tục sẽ được thông báo trước khi xóa.
+          Bài đăng được lưu cho tới khi anh chị xoá, bài bị gỡ do vi phạm hoặc tài khoản bị xoá; bài
+          bật tự ẩn thì không còn hiển thị sau 48 giờ. Dữ liệu tài khoản được lưu trong thời gian
+          tài khoản còn hoạt động và được xoá vĩnh viễn sau 30 ngày kể từ khi anh chị yêu cầu xoá.
         </LegalP>
 
         <LegalHeading id="qrt6">6. Liên hệ về dữ liệu</LegalHeading>

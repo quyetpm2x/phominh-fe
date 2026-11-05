@@ -14,7 +14,7 @@ export interface AuditLogItem {
 }
 
 // Log truy cập dữ liệu nhạy cảm (tai-lieu-chuc-nang.md #105) — SensitiveDataAccessLog đã ghi thật
-// từ mục 88 (reveal-private-comment) và mục 92 (reveal user detail), nay có route xem lại.
+// từ reveal-message và mục 92 (reveal user detail), nay có route xem lại.
 export function useAuditLog() {
   const router = useRouter();
   const [logs, setLogs] = React.useState<AuditLogItem[] | null>(null);

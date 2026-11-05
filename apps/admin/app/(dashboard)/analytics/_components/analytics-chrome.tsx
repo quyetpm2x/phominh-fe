@@ -2,32 +2,54 @@
 
 import { cn } from '@pho-minh/ui';
 import Link from 'next/link';
-import * as React from 'react';
+import { useSearchParams } from 'next/navigation';
 
-import { GTABS, G_TAB_IDS } from '@/lib/mock/analytics';
+import { useAdminResource } from '@/hooks/useAdminResource';
+import { RANGE_OPTIONS, useAnalyticsFilters } from '@/hooks/useAnalyticsFilters';
+import type { PilotAreaItem } from '@/hooks/usePilotAreas';
 
-const RANGES = ['7 ngày', '30 ngày', '90 ngày', 'Tùy chọn…'];
-const AREAS = ['Tất cả khu', 'Bến Nghé', 'Tân Định', 'Bình Thạnh', 'Thủ Đức'];
+const TABS = [
+  { id: 'G1', label: 'Thấy bài mới' },
+  { id: 'G2', label: 'Nội dung' },
+  { id: 'G3', label: 'Tăng trưởng' },
+  { id: 'G4', label: 'Giữ chân' },
+  { id: 'G5', label: 'Tương tác' },
+  { id: 'G7', label: 'An toàn' },
+  { id: 'G8', label: 'Chi phí' },
+] as const;
 
-// Thanh tab G1-G8 + bộ lọc khoảng thời gian/khu vực — ported từ gTabs/gRanges/gAreas trong
-// Admin.dc.html. Mock gốc không thật sự lọc lại dữ liệu theo lựa chọn này, chỉ đổi trạng thái
-// hiển thị — giữ nguyên hành vi đó (dữ liệu tĩnh).
-export function AnalyticsChrome({ current }: { current: string }) {
+// Thanh tab + bộ lọc thật. Chỉ hiện bộ lọc mà tab đó thật sự dùng, để không ai tưởng đang xem số đã lọc.
+export function AnalyticsChrome({
+  current,
+  range = false,
+  area = false,
+  defaultDays,
+}: {
+  current: string;
+  range?: boolean;
+  area?: boolean;
+  defaultDays?: number;
+}) {
   return (
     <>
       <TabStrip current={current} />
-      <FilterRow />
+      {range || area ? (
+        <div className="mt-3">
+          <AnalyticsFilters range={range} area={area} defaultDays={defaultDays} />
+        </div>
+      ) : null}
     </>
   );
 }
 
 function TabStrip({ current }: { current: string }) {
+  const query = useSearchParams().toString();
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {G_TAB_IDS.map((id) => (
+      {TABS.map(({ id, label }) => (
         <Link
           key={id}
-          href={`/analytics/${id.toLowerCase()}`}
+          href={`/analytics/${id.toLowerCase()}${query ? `?${query}` : ''}`}
           className={cn(
             'whitespace-nowrap rounded-md px-3.5 py-1.5 text-xs',
             id === current
@@ -35,94 +57,58 @@ function TabStrip({ current }: { current: string }) {
               : 'border border-stone-200 text-stone-700',
           )}
         >
-          {GTABS[id].tab}
+          {label}
         </Link>
       ))}
     </div>
   );
 }
 
-function FilterRow() {
-  return (
-    <div className="border-border bg-background mt-3 flex flex-wrap items-center gap-2.5 rounded-lg border px-3 py-2.5">
-      <RangeFilter />
-      <span className="h-6 w-px bg-stone-200" />
-      <AreaFilter />
-      <span className="flex-1" />
-      <div className="border-border rounded-md border px-3 py-1.5 text-xs text-stone-700">
-        Xuất CSV
-      </div>
-      <div className="border-border rounded-md border px-3 py-1.5 text-xs text-stone-700">
-        Xuất Excel
-      </div>
-    </div>
+export function AnalyticsFilters(props: { range?: boolean; area?: boolean; defaultDays?: number }) {
+  const { days, areaId, setDays, setArea } = useAnalyticsFilters(props.defaultDays);
+  const { data: areas } = useAdminResource<PilotAreaItem[]>(
+    props.area ? '/api/admin/pilot-areas' : null,
   );
-}
-
-function RangeFilter() {
-  const [range, setRange] = React.useState('30 ngày');
-
   return (
-    <>
-      <span className="pl-0.5 text-xs font-semibold uppercase tracking-wide text-stone-500">
-        Khoảng thời gian
-      </span>
-      <div className="flex gap-0.5 rounded-md bg-stone-100 p-0.5">
-        {RANGES.map((r) => (
-          <button
-            key={r}
-            type="button"
-            onClick={() => setRange(r)}
-            className={cn(
-              'rounded-md px-3 py-1.5 text-xs',
-              r === range ? 'bg-stone-900 font-semibold text-white' : 'text-stone-700',
-            )}
-          >
-            {r}
-          </button>
-        ))}
-      </div>
-    </>
-  );
-}
-
-function AreaFilter() {
-  const [open, setOpen] = React.useState(false);
-  const [area, setArea] = React.useState('Tất cả khu');
-
-  return (
-    <>
-      <span className="text-xs font-semibold uppercase tracking-wide text-stone-500">Khu vực</span>
-      <div className="relative">
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="border-border flex h-8 items-center gap-2 whitespace-nowrap rounded-md border px-3 text-xs font-medium"
+    <div className="border-border bg-background flex flex-wrap items-center gap-2.5 rounded-lg border px-3 py-2.5">
+      {props.range ? (
+        <div
+          className="flex gap-0.5 rounded-md bg-stone-100 p-0.5"
+          role="group"
+          aria-label="Khoảng thời gian"
         >
-          {area}
-          <span className="text-xs text-stone-500">▼</span>
-        </button>
-        {open && (
-          <div className="border-border absolute left-0 top-9 z-20 w-52 overflow-hidden rounded-md border bg-white shadow-lg">
-            {AREAS.map((a) => (
-              <button
-                key={a}
-                type="button"
-                onClick={() => {
-                  setArea(a);
-                  setOpen(false);
-                }}
-                className={cn(
-                  'block w-full border-t border-stone-100 px-3.5 py-2 text-left text-xs first:border-0',
-                  a === area && 'text-primary font-semibold',
-                )}
-              >
-                {a}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-    </>
+          {RANGE_OPTIONS.map((option) => (
+            <button
+              key={option}
+              type="button"
+              aria-pressed={option === days}
+              onClick={() => setDays(option)}
+              className={cn(
+                'rounded px-3 py-1 text-xs',
+                option === days ? 'bg-white font-semibold shadow-sm' : 'text-stone-600',
+              )}
+            >
+              {option} ngày
+            </button>
+          ))}
+        </div>
+      ) : null}
+      {props.area ? (
+        <select
+          aria-label="Khu vực"
+          value={areaId}
+          onChange={(event) => setArea(event.target.value)}
+          className="border-border rounded-md border bg-white px-2.5 py-1.5 text-xs"
+        >
+          <option value="">Toàn hệ thống</option>
+          {areas?.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name}
+              {item.isActive ? '' : ' (đã tắt)'}
+            </option>
+          ))}
+        </select>
+      ) : null}
+    </div>
   );
 }

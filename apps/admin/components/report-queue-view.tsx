@@ -6,12 +6,7 @@ import type { ReactNode } from 'react';
 import { Pill } from './pill';
 import { ReportActionBar } from './report-action-bar';
 
-import {
-  useReportQueue,
-  type ReportItem,
-  type ReportStatus,
-  type Severity,
-} from '@/hooks/useReportQueue';
+import { useReportQueue, type ReportItem, type ReportStatus } from '@/hooks/useReportQueue';
 import { STATUS_LABEL, STATUS_TONE } from '@/lib/reportLabels';
 
 const STATUS_TABS: { value: ReportStatus | undefined; label: string }[] = [
@@ -22,7 +17,7 @@ const STATUS_TABS: { value: ReportStatus | undefined; label: string }[] = [
   { value: undefined, label: 'Tất cả' },
 ];
 
-// Khung dùng chung cho 3 hàng đợi report (B1/B2/B3, tai-lieu-chuc-nang.md #86-88) — phần nội dung
+// Khung dùng chung cho các hàng đợi report (B1/B2/B6) — phần nội dung
 // (ảnh bài đăng vs nội dung bình luận) do renderContent quyết định, phần hành động (duyệt/cảnh
 // cáo/gỡ-ẩn) giống hệt nhau.
 export function ReportQueueView({
@@ -33,7 +28,7 @@ export function ReportQueueView({
 }: {
   endpoint: string;
   severeActionLabel?: string;
-  extraField?: 'removePost' | 'hideComment';
+  extraField?: 'removePost' | 'hideComment' | 'removeMessage';
   renderContent: (report: ReportItem) => { node: ReactNode; canAct: boolean };
 }) {
   const { reports, error, statusFilter, setStatusFilter, pendingId, updateStatus } =
@@ -113,13 +108,13 @@ function ReportRow({
   report: ReportItem;
   renderContent: (report: ReportItem) => { node: ReactNode; canAct: boolean };
   severeActionLabel?: string;
-  extraField?: 'removePost' | 'hideComment';
+  extraField?: 'removePost' | 'hideComment' | 'removeMessage';
   pending: boolean;
   onUpdateStatus: (input: {
     status: ReportStatus;
-    severity?: Severity;
     removePost?: boolean;
     hideComment?: boolean;
+    removeMessage?: boolean;
   }) => void;
 }) {
   const { node, canAct } = renderContent(report);
@@ -139,10 +134,10 @@ function ReportRow({
           severeLabel={severeActionLabel}
           pending={pending}
           onDismiss={() => onUpdateStatus({ status: 'dismissed' })}
-          onWarn={(severity) => onUpdateStatus({ status: 'actioned', severity })}
+          onWarn={() => onUpdateStatus({ status: 'actioned' })}
           onSevere={
             extraField
-              ? (severity) => onUpdateStatus({ status: 'actioned', severity, [extraField]: true })
+              ? () => onUpdateStatus({ status: 'actioned', [extraField]: true })
               : undefined
           }
         />

@@ -35,12 +35,13 @@ export default function ContactPage() {
               .
             </FaqItem>
             <FaqItem question="Hàng xóm có biết tôi là ai không?">
-              Họ chỉ thấy tên bạn tự đặt và khoảng cách tương đối tới bài đăng. Số điện thoại không
-              hiển thị công khai, địa chỉ nhà cũng không.
+              Họ thấy tên hiển thị của bạn và khoảng cách đã làm tròn tới bài đăng. Số điện thoại
+              không hiển thị công khai; địa chỉ chỉ hiện khi bạn tự nhập vào bài.
             </FaqItem>
             <FaqItem question="Tôi muốn xóa toàn bộ dữ liệu của mình thì làm sao?">
-              Trong app: Cài đặt → Dữ liệu của tôi → Xóa tài khoản và dữ liệu. Xử lý trong 72 giờ.
-              Xem mục “Quyền xóa dữ liệu cá nhân” trong{' '}
+              Trong app: Cài đặt → Đăng xuất & Xoá tài khoản. Tài khoản được xoá vĩnh viễn sau 30
+              ngày; trong thời gian này anh chị có thể đăng nhập lại để huỷ. Xem mục “Quyền xóa dữ
+              liệu cá nhân” trong{' '}
               <Link href="/legal#qrt3" className="text-accent-text hover:text-[#6E3018]">
                 Chính sách quyền riêng tư
               </Link>

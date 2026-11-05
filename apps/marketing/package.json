@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
     "type-check": "tsc --noEmit",
+    "test": "node --test \"lib/**/*.test.mjs\"",
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {

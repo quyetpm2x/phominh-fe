@@ -31,13 +31,13 @@ export function HomeHero() {
             phút đi bộ hiện lên ngay khi mở app — tin mới nổi lên trước, tin cũ tự mờ dần rồi ẩn.
           </p>
           <div className="animate-pmup mt-[30px] flex flex-wrap gap-3 [animation-delay:0.24s]">
-            <button
-              type="button"
-              className="from-primary relative overflow-hidden rounded-2xl bg-gradient-to-br to-[#1A4794] px-[26px] py-4 text-base font-bold text-white shadow-[0_10px_24px_rgba(255,201,60,.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,201,60,.36)]"
+            <a
+              href="#tai-app"
+              className="from-primary relative overflow-hidden rounded-2xl bg-gradient-to-br to-[#1A4794] px-[26px] py-4 text-base font-bold text-white no-underline shadow-[0_10px_24px_rgba(255,201,60,.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,201,60,.36)]"
             >
               Tải app — dành cho cư dân
               <span className="animate-pmsweep absolute inset-y-0 left-0 w-10 bg-[linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0))]" />
-            </button>
+            </a>
           </div>
           <div className="animate-pmup mt-7 flex flex-wrap gap-2.5 [animation-delay:0.32s]">
             <span className="border-border flex items-center gap-2 rounded-full border bg-white/75 px-3.5 py-2 text-[13px] font-medium text-gray-900">
@@ -68,9 +68,9 @@ export function HomeHero() {
             </div>
             <div>
               <div className="text-foreground font-mono text-2xl font-bold tracking-[-0.02em]">
-                24h
+                5 km
               </div>
-              <div className="mt-0.5 text-[13px] text-gray-800">là tin tự ẩn</div>
+              <div className="mt-0.5 text-[13px] text-gray-800">quanh bạn</div>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@ function HeroPhoneMockup() {
         <div className="border-border flex items-center gap-1.5 border-b px-4 py-1">
           <span className="animate-pmpulse bg-success h-[7px] w-[7px] rounded-full" />
           <span className="text-sm font-semibold">Times City</span>
-          <span className="text-xs text-gray-800">· bán kính 2 km</span>
+          <span className="text-xs text-gray-800">· bán kính 5 km</span>
         </div>
         <div className="flex flex-col gap-2.5 px-3.5 py-3">
           <div className="border-success rounded-2xl border-2 bg-white p-3 shadow-[0_2px_8px_rgba(0,0,0,.05)]">
@@ -156,21 +156,6 @@ function HeroPhoneMockup() {
             +
           </span>
         </div>
-      </div>
-
-      <div className="relative z-[1] flex flex-wrap justify-center gap-2 text-[12.5px] text-gray-900">
-        <span className="border-border flex items-center gap-1.5 rounded-full border bg-white/80 px-3 py-1.5">
-          <span className="border-success h-2.5 w-2.5 rounded-[3px] border-2" />
-          vừa đăng
-        </span>
-        <span className="border-border flex items-center gap-1.5 rounded-full border bg-white/80 px-3 py-1.5">
-          <span className="border-accent-dark h-2.5 w-2.5 rounded-[3px] border-2" />
-          vài giờ
-        </span>
-        <span className="border-border flex items-center gap-1.5 rounded-full border bg-white/80 px-3 py-1.5">
-          <span className="h-2.5 w-2.5 rounded-[3px] border-2 border-gray-500" />
-          sắp hết hạn
-        </span>
       </div>
     </div>
   );

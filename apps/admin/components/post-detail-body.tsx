@@ -6,13 +6,7 @@ import * as React from 'react';
 import { ImageLightbox } from '@/components/image-lightbox';
 import { Pill } from '@/components/pill';
 import type { AdminCommentNode, AdminPostDetail } from '@/hooks/useAdminPosts';
-import {
-  displayName,
-  initials,
-  POST_TYPE_LABEL,
-  STATUS_LABEL,
-  STATUS_TONE,
-} from '@/lib/post-detail-labels';
+import { displayName, initials, STATUS_LABEL, STATUS_TONE } from '@/lib/post-detail-labels';
 
 export function PostDetailBody({
   detail,
@@ -94,7 +88,6 @@ function PostAuthorHeader({ detail }: { detail: AdminPostDetail }) {
         </div>
       </div>
       <div className="flex flex-none items-center gap-1.5">
-        <Pill tone="neutral">{POST_TYPE_LABEL[detail.postType]}</Pill>
         <Pill tone={STATUS_TONE[detail.status]}>{STATUS_LABEL[detail.status]}</Pill>
       </div>
     </div>
@@ -145,9 +138,7 @@ function CommentRow({
           </span>
           <span>{new Date(c.createdAt).toLocaleString('vi-VN')}</span>
         </div>
-        <p className="mt-1">
-          {c.content ?? <span className="italic text-stone-500">[Bình luận riêng tư]</span>}
-        </p>
+        <p className="mt-1">{c.content}</p>
         <div className="mt-1.5 flex items-center justify-between">
           {c.isHidden ? <Pill tone="bad">Đã bị ẩn</Pill> : <span />}
           {!c.isHidden && (

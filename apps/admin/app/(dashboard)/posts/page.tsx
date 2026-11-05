@@ -19,11 +19,6 @@ const STATUS_TONE: Record<AdminPostListItem['status'], Tone> = {
   expired: 'neutral',
 };
 
-const POST_TYPE_LABEL: Record<AdminPostListItem['postType'], string> = {
-  life: 'Đời sống',
-  emergency: 'Khẩn cấp',
-};
-
 // Quản lý bài đăng — ngoài phạm vi 117 mục gốc, bổ sung theo yêu cầu (tai-lieu-chuc-nang.md mục
 // 120). Chỉ xem, sort mặc định theo thời gian đăng mới nhất. Thao tác ẩn/xoá bài đã có sẵn ở luồng
 // report (B1), không lặp lại ở đây.
@@ -42,9 +37,8 @@ export default function PostsPage() {
 
       <div className="border-border bg-background overflow-hidden rounded-lg border">
         <div className="grid grid-cols-12 gap-2 border-b border-stone-100 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
-          <div className="col-span-4">Nội dung</div>
+          <div className="col-span-5">Nội dung</div>
           <div className="col-span-2">Tác giả</div>
-          <div className="col-span-1">Loại</div>
           <div className="col-span-1">Trạng thái</div>
           <div className="col-span-1">Vote</div>
           <div className="col-span-1">B.luận</div>
@@ -106,7 +100,7 @@ function PostRow({
       onClick={() => onSelect(p.id)}
       className="border-stone-75 grid w-full grid-cols-12 items-center gap-2 border-b px-5 py-3 text-left text-sm last:border-0 hover:bg-stone-50"
     >
-      <div className="col-span-4 min-w-0">
+      <div className="col-span-5 min-w-0">
         <p className="truncate">{p.content || '(không có nội dung chữ)'}</p>
         {p.isSeeded && <span className="text-admin-amber-text text-xs">Bài mồi admin</span>}
       </div>
@@ -114,7 +108,6 @@ function PostRow({
         <span className="block truncate font-medium text-stone-700">{p.authorName}</span>
         <span className="block truncate text-stone-500">Biệt danh: {p.authorNickname ?? '—'}</span>
       </div>
-      <div className="col-span-1 text-xs text-stone-700">{POST_TYPE_LABEL[p.postType]}</div>
       <div className="col-span-1">
         <Pill tone={STATUS_TONE[p.status]}>{STATUS_LABEL[p.status]}</Pill>
       </div>

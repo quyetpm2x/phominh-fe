@@ -6,7 +6,8 @@ import { usePathname } from 'next/navigation';
 import * as React from 'react';
 
 import { AdminMenu } from '@/components/admin-menu';
-import { NAV, screenIdForPath } from '@/lib/nav';
+import { useWorkQueues } from '@/hooks/useWorkQueues';
+import { NAV, screenIdForPath, type NavItem } from '@/lib/nav';
 import { screenDesc, screenName } from '@/lib/screens';
 import type { ScreenId } from '@/lib/types';
 
@@ -48,6 +49,14 @@ function Sidebar({ activeScreen }: { activeScreen: ScreenId | undefined }) {
 }
 
 function SidebarNav({ activeScreen }: { activeScreen: ScreenId | undefined }) {
+  const pathname = usePathname();
+  const { data: queues, reload } = useWorkQueues();
+  // Xử lý xong rồi chuyển trang là số báo cập nhật, không cần tải lại cả trang.
+  React.useEffect(() => {
+    void reload();
+  }, [pathname, reload]);
+  const pendingOf = (id: ScreenId) => queues?.find((queue) => queue.id === id)?.count ?? 0;
+
   return (
     <nav className="flex-1 overflow-y-auto p-2.5 pb-5">
       {NAV.map((group) => (
@@ -56,7 +65,12 @@ function SidebarNav({ activeScreen }: { activeScreen: ScreenId | undefined }) {
             {group.label}
           </div>
           {group.items.map((item) => (
-            <SidebarNavItem key={item.id} item={item} active={item.id === activeScreen} />
+            <SidebarNavItem
+              key={item.id}
+              item={item}
+              pending={pendingOf(item.id)}
+              active={item.id === activeScreen}
+            />
           ))}
         </div>
       ))}
@@ -66,9 +80,11 @@ function SidebarNav({ activeScreen }: { activeScreen: ScreenId | undefined }) {
 
 function SidebarNavItem({
   item,
+  pending,
   active,
 }: {
-  item: { id: ScreenId; name: string; href: string; badge?: number };
+  item: NavItem;
+  pending: number;
   active: boolean;
 }) {
   const rowClassName = cn(
@@ -81,11 +97,12 @@ function SidebarNavItem({
     <Link href={item.href} className={rowClassName}>
       <span className="w-5 flex-none font-mono text-xs opacity-60">{item.id}</span>
       <span className="flex-1 leading-snug">{item.name}</span>
-      {item.badge != null && (
+      {pending > 0 && (
         <span className="bg-admin-red flex-none rounded-full px-1.5 py-0.5 font-mono text-xs font-semibold text-white">
-          {item.badge}
+          {pending}
         </span>
       )}
+      {item.notEnabled && <span className="flex-none text-xs text-white/45">Chưa bật</span>}
     </Link>
   );
 }

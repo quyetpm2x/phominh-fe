@@ -1,4 +1,4 @@
-import type { AdminPostDetail, AdminPostListItem } from '@/hooks/useAdminPosts';
+import type { AdminPostDetail } from '@/hooks/useAdminPosts';
 import type { Tone } from '@/lib/types';
 
 export const STATUS_LABEL: Record<AdminPostDetail['status'], string> = {
@@ -11,11 +11,6 @@ export const STATUS_TONE: Record<AdminPostDetail['status'], Tone> = {
   active: 'ok',
   removed: 'bad',
   expired: 'neutral',
-};
-
-export const POST_TYPE_LABEL: Record<AdminPostListItem['postType'], string> = {
-  life: 'Đời sống',
-  emergency: 'Khẩn cấp',
 };
 
 export function initials(name: string): string {

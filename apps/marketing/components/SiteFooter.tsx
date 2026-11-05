@@ -2,6 +2,8 @@ import Link from 'next/link';
 
 import { BRAND, BRAND_LOGO_LETTER, CONTACT_EMAILS, CONTACT_PHONE } from '../lib/constants';
 
+import { StoreButtons } from './StoreButtons';
+
 const YEAR = new Date().getFullYear();
 
 export function SiteFooter() {
@@ -18,22 +20,7 @@ export function SiteFooter() {
           <p className="mt-3.5 max-w-[280px] text-sm leading-[1.65] text-gray-600 [text-wrap:pretty]">
             Mạng xã hội của khu mình đang ở. Mở app là biết ngay chuyện quanh mình.
           </p>
-          <div className="mt-5 flex flex-wrap gap-2.5">
-            <a
-              href="#"
-              className="flex flex-col rounded-[11px] border border-white/[0.28] px-4 py-2.5 text-[#E8EBEE] no-underline"
-            >
-              <span className="text-[9.5px] tracking-[0.06em] opacity-70">TẢI TRÊN</span>
-              <span className="text-sm font-semibold">App Store</span>
-            </a>
-            <a
-              href="#"
-              className="flex flex-col rounded-[11px] border border-white/[0.28] px-4 py-2.5 text-[#E8EBEE] no-underline"
-            >
-              <span className="text-[9.5px] tracking-[0.06em] opacity-70">TẢI TRÊN</span>
-              <span className="text-sm font-semibold">Google Play</span>
-            </a>
-          </div>
+          <StoreButtons />
         </div>
 
         <div className="flex flex-col gap-2.5">
